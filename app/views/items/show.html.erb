@@ -1,13 +1,18 @@
 <h2>Detalhes do Item</h2>
 
 
-Imagem: <%= image_tag @item.image %>
-Nome: <%= @item.name %>
-Descrição: <%= @item.description %>
-Peso: <%= @item.weight %>
-Largura: <%= @item.width %>
-Altura: <%= @item.height %>
-Profundidade: <%= @item.depth %>
-Categoria: <%= @item.category %>
-Código: <%= @item.code %>
-
+<div style="display: flex;">
+  <div>
+    <%= image_tag @item.image, class: "item-image" %>
+  </div>
+  <div style="margin-left: 20px;">
+    <div>Nome: <%= @item.name %></div>
+    <div>Descrição: <%= @item.description %></div>
+    <div>Peso: <%= @item.weight %></div>
+    <div>Largura: <%= @item.width %></div>
+    <div>Altura: <%= @item.height %></div>
+    <div>Profundidade: <%= @item.depth %></div>
+    <div>Categoria: <%= @item.category %></div>
+    <div>Código: <%= @item.code %></div>
+  </div>
+</div>
