@@ -10,6 +10,31 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <nav>
+        <p>Olá <%= user_status %>!</p>
+        <ul>
+          <li>
+            <% if user_signed_in? %>
+              <%= current_user.nickname %> (<%= current_user.email %>) <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+            <% else %>
+              <%= link_to 'Entrar', new_user_session_path %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to 'Home', root_path %>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div>
+        <p class="alert"><%= alert %>
+        <p class="notice"><%= notice %>
+      </div>
+      <%= yield %>
+    </main>
+    
   </body>
 </html>
