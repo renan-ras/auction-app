@@ -208,6 +208,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activestorage (~> 7.0, >= 7.0.4.3)
   capybara
   debug
   devise (~> 4.9)

@@ -32,3 +32,4 @@ end
 
 
 gem "devise", "~> 4.9"
+# gem 'activestorage', '~> 7.0', '>= 7.0.4.3'

@@ -1,0 +1,27 @@
+<h2>Index dos Itens</h2>
+
+
+<div>
+    <% if @items.empty? %>
+      <p>Não existem itens cadastrados.</p>
+    <% else %>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @items.each do |item| %>
+          <tr>
+            <td><%= link_to item.name, item %></td>
+            <td><%= item.category %></td>
+            <td><%= item.description %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
