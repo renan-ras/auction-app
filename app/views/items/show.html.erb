@@ -16,3 +16,7 @@
     <div>Código: <%= @item.code %></div>
   </div>
 </div>
+
+<%= link_to('Voltar', items_path) %> <br>
+<%= link_to('Editar', edit_item_path) %> <br>
+<%= button_to('Remover', @item, method: :delete) %>

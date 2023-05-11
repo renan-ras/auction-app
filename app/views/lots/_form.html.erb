@@ -1,0 +1,42 @@
+<% if(@lot.errors.any?) %>
+  <p>Verifique os erros abaixo:</p>
+  <ul>
+    <% @lot.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with(model: @lot) do |f| %>
+  <div>
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+
+  <div>
+    <%= f.label :start_date %>
+    <%= f.datetime_local_field :start_date %>
+  </div>
+
+  <div>
+    <%= f.label :end_date %>
+    <%= f.datetime_local_field :end_date %>
+  </div>
+
+  <div>
+    <%= f.label :minimum_bid, "Lance mínimo" %>
+    <%= f.number_field :minimum_bid, step: 1, min: 0 %>
+  </div>
+
+  <div>
+    <%= f.label :minimum_bid_increment, "Incremento mínimo" %>
+    <%= f.number_field :minimum_bid_increment, step: 1, min: 1 %>
+  </div>
+
+
+
+  <div>
+    <%= f.submit 'Enviar' %>
+  </div>
+
+<% end %>

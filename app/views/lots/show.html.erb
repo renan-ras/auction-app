@@ -1,0 +1,17 @@
+<h2>Detalhes do Lote</h2>
+
+
+Código: <%= @lot.code %> <br>
+Data de Início: <%= @lot.start_date %> <br>
+Data de Término: <%= @lot.end_date %> <br>
+Lance Mínimo: <%= @lot.minimum_bid %> <br>
+Incremento Mínimo: <%= @lot.minimum_bid_increment %> <br>
+
+Status: <%= @lot.status %> <br>
+Criador: <%= @lot.creator.nickname %> <br>
+Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br>
+
+<br>
+<%= link_to('Voltar', root_path) %> <br>
+<%= link_to('Editar', edit_lot_path) %> <br>
+<%= button_to('Remover', @lot, method: :delete) %>
