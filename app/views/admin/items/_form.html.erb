@@ -7,7 +7,7 @@
   </ul>
 <% end %>
 
-<%= form_with(model: @item) do |f| %>
+<%= form_with(model: [:admin, @item], local: true) do |f| %>
   <div>
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -24,7 +24,6 @@
     <%= f.label :image %>
     <%= f.file_field :image %>
   </div>
-
 
 
 

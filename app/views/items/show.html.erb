@@ -18,5 +18,8 @@
 </div>
 
 <%= link_to('Voltar', items_path) %> <br>
-<%= link_to('Editar', edit_item_path) %> <br>
-<%= button_to('Remover', @item, method: :delete) %>
+
+<% if current_user.admin? %>
+  <%= link_to('Editar', edit_admin_item_path(@item)) %> <br>
+  <%= button_to('Remover', @item, method: :delete) %>  
+<% end %>
