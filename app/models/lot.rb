@@ -12,6 +12,20 @@ class Lot < ApplicationRecord
   validates :start_date, presence: true, comparison: { greater_than: Time.now }
   validates :end_date, presence: true, comparison: { greater_than: :start_date } # Testar se (:start_date + 24.hours) funciona.
 
+  validate :validate_approval, on: :update, if: -> { approver_id_changed? }
+
+  def self.available_items
+    Item.where(lot_id: nil)
+  end
+
   private
+
+  def validate_approval
+    if approver_id_was.present?
+      errors.add(:approver, "não pode ser alterado após o lote estar aprovado")
+    elsif approver_id == creator_id
+      errors.add(:base, "Você não pode aprovar um lote que criou")
+    end
+  end
 
 end

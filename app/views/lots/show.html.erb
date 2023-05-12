@@ -13,5 +13,33 @@ Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br>
 
 <br>
 <%= link_to('Voltar', root_path) %> <br>
-<%= link_to('Editar', edit_lot_path) %> <br>
-<%= button_to('Remover', @lot, method: :delete) %>
+
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to('Editar', edit_admin_lot_path(@lot)) %> <br>
+  <%= button_to('Remover', admin_lot_path(@lot), method: :delete) %> <br>
+  <%= button_to('Aprovar', admin_approve_lot_path(@lot), method: :patch) %>
+<% end %>
+
+<br>
+
+<% if user_signed_in? && current_user.admin? %>
+  <%= form_with(url: admin_add_item_to_lot_path(@lot), method: :post, local: true) do %>
+    <%= label_tag :item_id, "Adicionar item ao lote:" %>
+    <%= select_tag :item_id, options_from_collection_for_select(Lot.available_items, "id", "name") %>
+    <%= submit_tag "Adicionar" %>
+  <% end %>
+<% end %>
+
+
+
+<h3>Itens associados ao lote:</h3>
+<ul>
+  <% @lot.items.each do |item| %>
+    <li>
+      <%= item.name %>
+      <% if user_signed_in? && current_user.admin? %>
+        <%= button_to 'Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

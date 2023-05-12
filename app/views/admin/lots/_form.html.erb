@@ -7,7 +7,7 @@
   </ul>
 <% end %>
 
-<%= form_with(model: @lot) do |f| %>
+<%= form_with(model: [:admin, @lot], local: true) do |f| %>
   <div>
     <%= f.label :code %>
     <%= f.text_field :code %>

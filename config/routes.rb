@@ -7,5 +7,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :lots, only: [:index, :new, :create, :edit, :update, :destroy]
+    post '/lots/:id/add_item', to: 'lots#add_item', as: :add_item_to_lot
+    post '/lots/:id/remove_item', to: 'lots#remove_item', as: :remove_item_from_lot
+    patch '/lots/:id/approve', to: 'lots#approve', as: :approve_lot
+
   end
 end

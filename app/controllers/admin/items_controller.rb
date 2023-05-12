@@ -33,7 +33,7 @@ module Admin
       if @item.destroy
         flash[:notice] = 'Item removido com sucesso'
       else
-        flash[:alert] = "Erro: Item não removido"
+        flash[:alert] = "Item não removido"
       end
       redirect_to items_path
     end
