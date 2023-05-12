@@ -35,7 +35,7 @@ Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br>
 <% end %>
 
 
-
+<!--
 <h3>Itens associados ao lote:</h3>
 <ul>
   <% @lot.items.each do |item| %>
@@ -47,3 +47,35 @@ Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br>
     </li>
   <% end %>
 </ul>
+-->
+
+
+
+
+<h3>Itens associados ao lote:</h3>
+<div class="items-container">
+  <% @lot.items.each do |item| %>
+
+
+    <div class="item-card" style="display: flex; margin-bottom: 20px;">
+      <div>
+        <%= image_tag item.image, class: "item-image", style: "width: 100px; height: 100px;" %>
+      </div>
+      <div style="margin-left: 20px;">
+        <div>Nome: <%= item.name %></div>
+        <div>Descrição: <%= item.description %></div>
+        <div>Peso: <%= item.weight %> g</div>
+        <div>Dimensões (cm): <%= item.height %>(A) x <%= item.width %>(L) x <%= item.depth %>(P)</div>
+      </div>
+      <div style="margin-left: 20px;">
+        <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-primary' %>
+      </div>
+      <div style="margin-left: 20px;">
+        <%= button_to('Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post) if user_signed_in? && current_user.admin? %>
+      </div>
+    </div>
+
+
+  <% end %>
+</div>
+

@@ -1,3 +1,4 @@
+<!--
 <h2>Index dos Itens</h2>
 
 
@@ -25,3 +26,60 @@
       </table>
     <% end %>
   </div>
+-->
+
+<!--
+<h2>Itens</h2>
+
+<%= link_to 'Novo Item', new_admin_item_path, class: 'btn btn-primary' if current_user.admin? %>
+
+<div class="items-container">
+  <% @items.each do |item| %>
+    <div class="item-card" style="display: flex; margin-bottom: 20px;">
+      <div>
+        <%= image_tag item.image, class: "item-image", style: "width: 100px; height: 100px;" %>
+      </div>
+      <div style="margin-left: 20px;">
+        <div>Nome: <%= item.name %></div>
+        <div>Descrição: <%= item.description %></div>
+        <div>Peso: <%= item.weight %></div>
+        <div>Largura: <%= item.width %></div>
+        <div>Altura: <%= item.height %></div>
+        <div>Profundidade: <%= item.depth %></div>
+        <div>Categoria: <%= item.category %></div>
+        <div>Código: <%= item.code %></div>
+      </div>
+      <div style="margin-left: 20px;">
+        <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-primary' %>
+        <% if current_user.admin? %>
+          <%= link_to 'Editar', edit_admin_item_path(item), class: 'btn btn-secondary' %>
+          <%= link_to 'Deletar', admin_item_path(item), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-danger' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+-->
+
+<h2>Itens</h2>
+
+<%= link_to 'Novo Item', new_admin_item_path, class: 'btn btn-primary' if current_user.admin? %>
+
+<div class="items-container">
+  <% @items.each do |item| %>
+    <div class="item-card" style="display: flex; margin-bottom: 20px;">
+      <div>
+        <%= image_tag item.image, class: "item-image", style: "width: 100px; height: 100px;" %>
+      </div>
+      <div style="margin-left: 20px;">
+        <div>Nome: <%= item.name %></div>
+        <div>Descrição: <%= item.description %></div>
+        <div>Peso: <%= item.weight %> g</div>
+        <div>Dimensões (cm): <%= item.height %>(A) x <%= item.width %>(L) x <%= item.depth %>(P)</div>
+      </div>
+      <div style="margin-left: 20px;">
+        <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

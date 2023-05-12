@@ -1,6 +1,6 @@
 module Admin
   class LotsController < BaseController
-    before_action :set_lot, only: [:edit, :update, :destroy, :add_item, :remove_item, :approve]
+    before_action :set_lot, only: [:edit, :update, :destroy, :add_item, :remove_item, :approve, :cancel, :sell]
 
     def new
       @lot = Lot.new
@@ -34,7 +34,7 @@ module Admin
       if @lot.destroy
         flash[:notice] = 'Lote removido com sucesso'
       else
-        flash[:alert] = "Lote não removido"
+        set_error_flash('excluir')
       end
       redirect_to root_path
     end
@@ -47,8 +47,7 @@ module Admin
         if item.update(lot_id: @lot.id)
           flash[:notice] = "Item adicionado ao lote com sucesso"
         else
-          flash[:alert] = "Erro ao adicionar item ao lote"
-          flash[:alert] += ": " + @lot.errors.full_messages.join(", ") unless @lot.errors.empty?
+          set_error_flash('adicionar item ao')
         end
       end
       redirect_to lot_path(@lot)
@@ -59,7 +58,7 @@ module Admin
       if item.update(lot_id: nil)
         flash[:notice] = "Item removido do lote com sucesso"
       else
-        flash[:alert] = "Erro ao remover item do lote"
+        set_error_flash('remover item do')
       end
       redirect_to lot_path(@lot)
     end
@@ -68,8 +67,28 @@ module Admin
       if @lot.update(status: :approved, approver: current_user)
         flash[:notice] = 'Lote aprovado com sucesso'
       else
-        flash[:alert] = 'Erro ao aprovar o lote'
-        flash[:alert] += ": " + @lot.errors.full_messages.join(", ") unless @lot.errors.empty?
+        set_error_flash('aprovar')
+      end
+      redirect_to lot_path(@lot)
+    end
+
+    #<%= button_to('Cancelar Lote', admin_cancel_lot_path(@lot), method: :patch) if user_signed_in? && current_user.admin? %>
+    def cancel
+      if @lot.update(status: :canceled)
+        @lot.items.update_all(lot_id: nil)
+        flash[:notice] = "Lote cancelado com sucesso e itens desassociados"
+      else
+        set_error_flash('cancelar')
+      end
+      redirect_to lot_path(@lot)
+    end
+    
+    #<%= link_to('Vender', admin_sell_lot_path(@lot), method: :patch) if user_signed_in? && current_user.admin? %>
+    def sell
+      if @lot.update(status: :sold)
+        flash[:notice] = 'Lote vendido com sucesso'
+      else
+        set_error_flash('vender')
       end
       redirect_to lot_path(@lot)
     end
@@ -82,6 +101,11 @@ module Admin
   
     def lot_params
       params.require(:lot).permit(:code, :start_date, :end_date, :minimum_bid, :minimum_bid_increment)
+    end
+
+    def set_error_flash(action_name)
+      flash[:alert] = "Erro ao #{action_name} lote"
+      flash[:alert] += ": " + @lot.errors.full_messages.join(", ") unless @lot.errors.empty?
     end
   
   end
