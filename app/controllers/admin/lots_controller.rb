@@ -42,15 +42,14 @@ module Admin
     def add_item
       if params[:item_id].blank?
         flash[:alert] = "Nenhum item selecionado. Por favor, selecione um item para adicionar ao lote."
-        redirect_to lot_path(@lot)
-        return
-      end
-    
-      item = Item.find(params[:item_id])
-      if item.update(lot_id: @lot.id)
-        flash[:notice] = "Item adicionado ao lote com sucesso"
       else
-        flash[:alert] = "Erro ao adicionar item ao lote"
+        item = Item.find(params[:item_id])
+        if item.update(lot_id: @lot.id)
+          flash[:notice] = "Item adicionado ao lote com sucesso"
+        else
+          flash[:alert] = "Erro ao adicionar item ao lote"
+          flash[:alert] += ": " + @lot.errors.full_messages.join(", ") unless @lot.errors.empty?
+        end
       end
       redirect_to lot_path(@lot)
     end    
