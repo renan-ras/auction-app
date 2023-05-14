@@ -1,0 +1,35 @@
+pt-BR:
+  activerecord:
+    models:
+      user: Usuário
+      lot: Lote
+      item: Item
+      bid: Lance
+    attributes:
+      user:
+        email: 'E-mail'
+        nickname: 'Apelido'
+      lot:
+        code: 'Código'
+        start_date: 'Data de início'
+        end_date: 'Data de término'
+        minimum_bid: 'Lance mínimo'
+        minimum_bid_increment: 'Incremento mínimo'
+        creator: 'Criador'
+        approver: 'Aprovador'
+      item:
+        name: 'Nome'
+        description: 'Descrição'
+        image: 'Imagem'
+        weight: 'Peso'
+        width: 'Largura'
+        height: 'Altura'
+        depth: 'Profundidade'
+        category: 'Categoria'
+        code: 'Código'
+        lot: 'Lote'
+      bid:
+        amount: 'Quantia'
+        user: 'Usuário'
+        lot: 'Lote'
+        #created_at: 'Criado em'

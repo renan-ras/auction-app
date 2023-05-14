@@ -60,8 +60,8 @@
   <div style="flex: 1;">
     <h2>Área de Lances</h2>
 
-    <% auction_status = @lot.open_for_bids? ? 'Aberto' : 'Não disponível' %>
-    <p>Leilão <%= auction_status %>:
+    <% status = @lot.open_for_bids? ? 'Aberto' : 'Não disponível' %>
+    <p>Leilão <%= status %>:
     <br>
     Data de Início: <%= l @lot.start_date, format: :short %>
     <br>
@@ -72,45 +72,32 @@
     
     <p>Lance Atual: <strong>VALOR DO LANCE</strong> por <%= "NOME DO USUÁRIO" %></p>
 
-    <% if user_signed_in? && !current_user.admin? %>
-      <h3>Fazer Lance</h3>
-      <%= form_with(model: [ @lot, @lot.bids.build ], local: true) do |f| %>
-        <div class="form-group">
-          <% minimum_amount = @lot.bids.maximum(:amount) ? @lot.bids.maximum(:amount) + @lot.minimum_bid_increment : @lot.minimum_bid %>
-          <%= f.label :amount, "Próximo Lance" %>
-          <%= f.number_field :amount, step: 0.01, value: minimum_amount, class: "form-control" %>
-        </div>
-        <div class="text-right">
-          <%= f.submit "Fazer Lance", class: "btn btn-primary" %>
-        </div>
-      <% end %>
-    <% end %>
-
-
+    <div>
+      <label for="next_bid">Próximo Lance: </label>
+      <input type="number" id="next_bid" name="next_bid" step="any">
+      <button>Fazer Lance</button>
+    </div>
 
     <h3>Histórico de Lances</h3>
-    <% if @lot.bids.count > 0 %>
-      <table class="table">
-        <thead>
+    <table>
+      <thead>
+        <tr>
+          <th>Valor</th>
+          <th>Usuário</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <% bids = [      { amount: 100, user: 'João', date: '2023-05-12 12:00' },      { amount: 200, user: 'Maria', date: '2023-05-12 14:00' },      { amount: 300, user: 'Pedro', date: '2023-05-12 16:00' }    ] %>
+        <% bids.reverse_each do |bid| %>
           <tr>
-            <th>Valor do Lance</th>
-            <th>Usuário</th>
-            <th>Data</th>
+            <td><%= bid[:amount] %></td>
+            <td><%= bid[:user] %></td>
+            <td><%= bid[:date] %></td>
           </tr>
-        </thead>
-        <tbody>
-          <% @lot.bids.order(created_at: :desc).each do |bid| %>
-            <tr>
-              <td><%= number_to_currency(bid.amount) %></td>
-              <td><%= bid.user.nickname %></td>
-              <td><%= l(bid.created_at, format: :short) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p>Nenhum lance foi feito ainda.</p>
-    <% end %>
-
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

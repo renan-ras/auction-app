@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
-  
+  has_many :bids
   before_validation :set_admin_status_based_on_email_domain
   validates :nickname, :cpf, presence: true
   validates :nickname, :cpf, uniqueness: true

@@ -3,7 +3,7 @@
 
 <div style="display: flex;">
   <div>
-    <%= image_tag @item.image, class: "item-image" %>
+    <%= image_tag( @item.image.present? ? @item.image : "imagem_padrao.jpg", class: "item-show-image") %>
   </div>
   <div style="margin-left: 20px;">
     <div>Nome: <%= @item.name %></div>
@@ -15,9 +15,10 @@
     <div>Categoria: <%= @item.category %></div>
     <div>Código: <%= @item.code %></div>
   </div>
+  
 </div>
 
-<%= link_to('Voltar', items_path) %> <br>
+<%= link_to('Todos os itens', items_path) %> <br>
 
 <% if user_signed_in? && current_user.admin? %>
   <%= link_to('Editar', edit_admin_item_path(@item)) %> <br>

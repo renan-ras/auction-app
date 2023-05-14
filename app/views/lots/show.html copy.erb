@@ -1,0 +1,58 @@
+<h2>Detalhes do Lote</h2>
+
+Código: <%= @lot.code %> <br>
+Data de Início: <%= @lot.start_date %> <br>
+Data de Término: <%= @lot.end_date %> <br>
+Lance Mínimo: <%= @lot.minimum_bid %> <br>
+Incremento Mínimo: <%= @lot.minimum_bid_increment %> <br>
+
+Status: <%= @lot.status %> <br>
+Criador: <%= @lot.creator.nickname %> <br>
+Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br>
+
+<br>
+<%= link_to('Voltar', root_path) %> <br><br>
+
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to('Editar', edit_admin_lot_path(@lot)) %> <br><br>
+  <%= button_to('Remover', admin_lot_path(@lot), method: :delete) %> <br>
+  
+  <%= button_to('Aprovar', admin_approve_lot_path(@lot), method: :patch) if @lot.pending_approval? %>
+
+<% end %>
+
+<br>
+
+
+<% if user_signed_in? && current_user.admin? %>
+  <%= form_with(url: admin_add_item_to_lot_path(@lot), method: :post, local: true) do %>
+    <%= label_tag :item_id, "Adicionar item ao lote:" %>
+    <%= select_tag :item_id, options_from_collection_for_select(Lot.available_items, "id", "name") %>
+    <%= submit_tag "Adicionar" %>
+  <% end %>
+<% end %>
+
+
+
+<h3>Itens associados ao lote:</h3>
+<div class="items-container">
+  <% @lot.items.each do |item| %>
+    <div class="item-card" style="display: flex; margin-bottom: 20px;">
+      <div style="margin-right: 20px;">
+        <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-primary' %>
+        <br><br>
+        <%= button_to('Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post) if user_signed_in? && current_user.admin? %>
+      </div>
+      <div>
+        <%= image_tag item.image, class: "item-image", style: "width: 100px; height: 100px;" %>
+      </div>
+      <div style="margin-left: 20px;">
+        <div>Nome: <%= item.name %></div>
+        <div>Descrição: <%= item.description %></div>
+        <div>Peso: <%= item.weight %> g</div>
+        <div>Dimensões (cm): <%= item.height %>(A) x <%= item.width %>(L) x <%= item.depth %>(P)</div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
