@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :bids, only: [:create]
   end
 
+  resources :dashboards, only: [:index]
   namespace :admin do
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :lots, only: [:index, :new, :create, :edit, :update, :destroy]
@@ -14,6 +15,9 @@ Rails.application.routes.draw do
     patch '/lots/:id/approve', to: 'lots#approve', as: :approve_lot
     patch '/lots/:id/cancel', to: 'lots#cancel', as: :cancel_lot
     patch '/lots/:id/sell', to: 'lots#sell', as: :sell_lot
+    get 'dashboard', to: 'dashboards#index', as: :dashboard
+    get 'items/lotless', to: 'items#lotless_items', as: :lotless_items
+    get 'items/sold', to: 'items#sold_items', as: :sold_items
 
   end
 end

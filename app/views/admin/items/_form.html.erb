@@ -15,7 +15,7 @@
 
   <div>
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_area :description %>
   </div>
 
 
@@ -29,22 +29,22 @@
 
   <div>
     <%= f.label :weight %>
-    <%= f.number_field :weight %>
+    <%= f.number_field :weight, step: 1, min: 1 %>
   </div>
 
   <div>
     <%= f.label :width %>
-    <%= f.number_field :width %>
+    <%= f.number_field :width, step: 1, min: 1 %>
   </div>
 
   <div>
     <%= f.label :height %>
-    <%= f.number_field :height %>
+    <%= f.number_field :height, step: 1, min: 1 %>
   </div>
 
   <div>
     <%= f.label :depth %>
-    <%= f.number_field :depth %>
+    <%= f.number_field :depth, step: 1, min: 1 %>
   </div>
 
   <div>

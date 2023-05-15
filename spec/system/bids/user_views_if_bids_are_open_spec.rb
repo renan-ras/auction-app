@@ -33,9 +33,11 @@ describe "Usuário navega até lot#show" do
       visit '/'
       click_on lot_a.code
       
-      # Verificação de informações de leilão NÃO DISPONÍVEL
-      expect(page).not_to  have_content 'Leilão Aberto'
-      expect(page).to  have_content 'Leilão Não disponível'
+      # Verificação de informações de leilão Não Iniciado
+      expect(page).to  have_content 'Leilão Não Iniciado'
+      expect(page).not_to  have_content 'Leilão Em Andamento'
+      expect(page).not_to  have_content 'Leilão Encerrado'
+      expect(page).not_to  have_content 'Leilão Em Desenvolvimento'
       
       expect(page).to  have_content 'Moto G'
       expect(page).to  have_content 'Suporte de Celular'
@@ -54,9 +56,12 @@ describe "Usuário navega até lot#show" do
       visit '/'
       click_on lot_a.code
       
-      # Verificação de informações de leilão ABERTO
-      expect(page).to  have_content 'Leilão Aberto'
-      expect(page).not_to  have_content 'Leilão Não disponível'
+      # Verificação de informações de leilão Em Andamento
+      expect(page).to  have_content 'Leilão Em Andamento'
+      expect(page).not_to  have_content 'Leilão Encerrado'
+      expect(page).not_to  have_content 'Leilão Não Iniciado'
+      expect(page).not_to  have_content 'Leilão Em Desenvolvimento'
+
       
       expect(page).to  have_content 'Moto G'
       expect(page).to  have_content 'Suporte de Celular'
@@ -75,10 +80,12 @@ describe "Usuário navega até lot#show" do
       visit '/'
       click_on lot_a.code
       
-      # Verificação de informações de leilão NÃO DISPONÍVEL
-      expect(page).not_to  have_content 'Leilão Aberto'
-      expect(page).to  have_content 'Leilão Não disponível'
-      
+      # Verificação de informações de leilão Encerrado
+      expect(page).to  have_content 'Leilão Encerrado'
+      expect(page).not_to  have_content 'Leilão Em Andamento'
+      expect(page).not_to  have_content 'Leilão Não Iniciado'
+      expect(page).not_to  have_content 'Leilão Em Desenvolvimento'
+
       expect(page).to  have_content 'Moto G'
       expect(page).to  have_content 'Suporte de Celular'
       expect(page).to  have_content 'Microondas'
@@ -86,13 +93,13 @@ describe "Usuário navega até lot#show" do
   
   end
 
-  context "está autenticado" do
-    it "e faz um lance" do
+  # context "está autenticado" do
+  #   it "e faz um lance" do
       
-    end
+  #   end
     
     
-  end
+  # end
   
 
 end

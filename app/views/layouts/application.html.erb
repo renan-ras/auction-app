@@ -11,38 +11,7 @@
 
   <body>
     <header>
-      <nav>
-        <p>Olá <%= user_status %>!</p>
-        <ul>
-          <li>
-            <% if user_signed_in? %>
-              <%= current_user.nickname %> (<%= current_user.email %>) <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
-            <% else %>
-              <%= link_to 'Entrar', new_user_session_path %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to 'Home', root_path %>
-          </li>
-          <li>
-            <%= link_to 'ITENS', items_path %>
-          </li>
-          <ul>
-            <li>
-            <%= link_to 'Cadastrar Itens', new_admin_item_path %>
-            </li>
-          </ul>
-          <li>
-            <%= link_to 'LOTES', root_path %>
-          </li>
-          <ul>
-            <li>
-            <%= link_to 'Cadastrar Lotes', new_admin_lot_path %>
-            </li>
-          </ul>
-          
-        </ul>
-      </nav>
+      <%= render 'layouts/nav_bar' %>
     </header>
 
     <main>

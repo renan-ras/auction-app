@@ -5,14 +5,11 @@ class Bid < ApplicationRecord
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validate :lot_open_for_bids, :user_not_admin, :amount_meets_minimum
 
-  # def minimum_amount
-  #   (lot.bids.count == 0 ? lot.minimum_bid : lot.bids.maximum(:amount) + lot.minimum_bid_increment) if lot.present?
-  # end
-
+  
   private
 
   def lot_open_for_bids
-    errors.add(:lot, "não está aberto para lances") unless lot.open_for_bids?
+    errors.add(:lot, "não está aberto para lances") unless lot.auction_open_for_bids?
   end
 
   def user_not_admin

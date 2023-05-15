@@ -2,6 +2,14 @@ module Admin
   class ItemsController < BaseController
     before_action :set_item, only: [:edit, :update, :destroy]
 
+    def lotless_items
+      @items = Item.where(lot_id: nil) # Itens não associados a lotes
+    end
+
+    def sold_items
+      @items = Item.in_sold_lots
+    end
+
     def new
       @item = Item.new
     end

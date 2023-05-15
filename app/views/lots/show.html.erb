@@ -2,35 +2,33 @@
   <div style="flex: 1; margin-right: 40px;">
     <h2>Detalhes do Lote</h2>
 
+    <%#= link_to('Todos os Lotes', root_path) %>
+    
     Código: <%= @lot.code %> <br>
-    Data de Início: <%= @lot.start_date %> <br>
-    Data de Término: <%= @lot.end_date %> <br>
+    Data de Início: <%= l @lot.start_date, format: :long %> <br>
+    Data de Término: <%= l @lot.end_date, format: :long %> <br>
     Lance Mínimo: <%= @lot.minimum_bid %> <br>
     Incremento Mínimo: <%= @lot.minimum_bid_increment %> <br>
 
-    Status: <%= @lot.status %> <br>
-    Criador: <%= @lot.creator.nickname %> <br>
-    Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br>
-
-    <br>
-    <%= link_to('Voltar', root_path) %> <br><br>
-
     <% if user_signed_in? && current_user.admin? %>
-      <%= link_to('Editar', edit_admin_lot_path(@lot)) %> <br><br>
-      <%= button_to('Remover', admin_lot_path(@lot), method: :delete) %> <br>
-      
-      <%= button_to('Aprovar', admin_approve_lot_path(@lot), method: :patch) if @lot.pending_approval? %>
+      Status: <%= @lot.status %> <br>
+      Criador: <%= @lot.creator.nickname %> <br>
+      Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br><br>
 
-    <% end %>
+      <% if @lot.pending_approval? %>
+        <%= link_to('Editar', edit_admin_lot_path(@lot)) %> <br><br>
+        <%= button_to('Remover', admin_lot_path(@lot), method: :delete) %> <br>
+        <%= button_to('Aprovar', admin_approve_lot_path(@lot), method: :patch) %>
+        <br>
 
-    <br>
-
-    <% if user_signed_in? && current_user.admin? %>
-      <%= form_with(url: admin_add_item_to_lot_path(@lot), method: :post, local: true) do %>
-        <%= label_tag :item_id, "Adicionar item ao lote:" %>
-        <%= select_tag :item_id, options_from_collection_for_select(Lot.available_items, "id", "name") %>
-        <%= submit_tag "Adicionar" %>
+        <%= form_with(url: admin_add_item_to_lot_path(@lot), method: :post, local: true) do %>
+          <%= label_tag :item_id, "Adicionar item ao lote:" %>
+          <%= select_tag :item_id, options_from_collection_for_select(Lot.available_items, "id", "name") %>
+          <%= submit_tag "Adicionar" %>
+        <% end %>
+        
       <% end %>
+        
     <% end %>
 
     <h3>Itens associados ao lote:</h3>
@@ -40,11 +38,10 @@
           <div style="margin-right: 20px;">
             <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-primary' %>
             <br><br>
-            <%= button_to('Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post) if user_signed_in? && current_user.admin? %>
+            <%= button_to('Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post) if user_signed_in? && current_user.admin? && @lot.pending_approval? %>
           </div>
           <div>
             <%= image_tag(item.image.present? ? item.image : "imagem_padrao.jpg", class: "item-image", style: "width: 100px; height: 100px;") %>
-            <%#= image_tag item.image, class: "item-image", style: "width: 100px; height: 100px;" %>
           </div>
           <div style="margin-left: 20px;">
             <div>Nome: <%= item.name %></div>
@@ -58,27 +55,38 @@
   </div>
 
   <div style="flex: 1;">
+    <% if @lot.auction_waiting_validation? && user_signed_in? && current_user.admin? %>
+      <h3>Validar Resultado do Leilão</h3>
+      <% if @lot.lot_should_be_sold? %>
+        <%= button_to('Vender Lote', admin_sell_lot_path(@lot), method: :patch) %>
+      <% elsif @lot.lot_should_be_canceled? %>
+        <%= button_to('Cancelar Lote', admin_cancel_lot_path(@lot), method: :patch) %>
+      <% end %>
+    <% end %>
     <h2>Área de Lances</h2>
 
-    <% auction_status = @lot.open_for_bids? ? 'Aberto' : 'Não disponível' %>
-    <p>Leilão <%= auction_status %>:
-    <br>
-    Data de Início: <%= l @lot.start_date, format: :short %>
-    <br>
-    Data Atual: <%= l Time.now, format: :short %>
-    <br>
-    Data de Término:<%= l @lot.end_date, format: :short %></p>
+    <p><strong>Leilão <%= @lot.auction_status %></strong></p>
+
+
     
-    
-    <p>Lance Atual: <strong>VALOR DO LANCE</strong> por <%= "NOME DO USUÁRIO" %></p>
+
+
+    <p><strong>
+    <% if @lot.bids.count > 0 %>
+      Lance Atual: <%= number_to_currency(@lot.bids.maximum(:amount)) %></strong> 
+      pelo usuário: <strong><%= @lot.bids.order(amount: :desc).first.user.nickname %>
+    <%else%>
+      <%='Nenhum lance registrado' %>
+    <%end%>
+    </strong></p>
+
 
     <% if user_signed_in? && !current_user.admin? %>
       <h3>Fazer Lance</h3>
       <%= form_with(model: [ @lot, @lot.bids.build ], local: true) do |f| %>
         <div class="form-group">
-          <% minimum_amount = @lot.bids.maximum(:amount) ? @lot.bids.maximum(:amount) + @lot.minimum_bid_increment : @lot.minimum_bid %>
           <%= f.label :amount, "Próximo Lance" %>
-          <%= f.number_field :amount, step: 0.01, value: minimum_amount, class: "form-control" %>
+          <%= f.number_field :amount, step: 0.01, value: @lot.next_minimum_bid, class: "form-control" %>
         </div>
         <div class="text-right">
           <%= f.submit "Fazer Lance", class: "btn btn-primary" %>
@@ -99,7 +107,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @lot.bids.order(created_at: :desc).each do |bid| %>
+          <% @lot.bids.order(amount: :desc).each do |bid| %>
             <tr>
               <td><%= number_to_currency(bid.amount) %></td>
               <td><%= bid.user.nickname %></td>

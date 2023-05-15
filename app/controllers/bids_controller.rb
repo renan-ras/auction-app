@@ -9,7 +9,7 @@ class BidsController < ApplicationController
     if bid.save
       flash[:notice] = 'Lance enviado com sucesso!'
     else
-      flash[:alert] = 'Não foi possível enviar o lance. Verifique os valores e tente novamente.'
+      flash[:alert] = 'Não foi possível enviar o lance.'
       flash[:alert] += ": " + bid.errors.full_messages.join(", ") unless bid.errors.empty?
     end
 

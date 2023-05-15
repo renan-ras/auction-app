@@ -83,7 +83,7 @@ module Admin
       redirect_to lot_path(@lot)
     end
     
-    #<%= link_to('Vender', admin_sell_lot_path(@lot), method: :patch) if user_signed_in? && current_user.admin? %>
+    #<%= button_to('Vender', admin_sell_lot_path(@lot), method: :patch) if user_signed_in? && current_user.admin? %>
     def sell
       if @lot.update(status: :sold)
         flash[:notice] = 'Lote vendido com sucesso'

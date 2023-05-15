@@ -24,13 +24,13 @@
   </div>
 
   <div>
-    <%= f.label :minimum_bid, "Lance mínimo" %>
-    <%= f.number_field :minimum_bid, step: 1, min: 0 %>
+    <%= f.label :minimum_bid %>
+    <%= f.number_field :minimum_bid, step: 0.01, min: 0.01 %>
   </div>
 
   <div>
-    <%= f.label :minimum_bid_increment, "Incremento mínimo" %>
-    <%= f.number_field :minimum_bid_increment, step: 1, min: 1 %>
+    <%= f.label :minimum_bid_increment %>
+    <%= f.number_field :minimum_bid_increment, step: 0.01, min: 0.01 %>
   </div>
 
 

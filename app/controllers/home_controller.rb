@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @lots = Lot.all # Lot.approved
+    @lots = Lot.approved
   end
 end

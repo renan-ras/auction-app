@@ -1,0 +1,55 @@
+<h1>Painel do Usuário</h1>
+
+<div>
+  <h2>Lotes arrematados</h2>
+  <% if @won_auction_lots.empty? %>
+    <p>Não existem lotes arrematados.</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Data de Término</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @won_auction_lots.each do |lot| %>
+        <tr>
+          <td><%= link_to lot.code, lot %></td>
+          <td><%= l lot.end_date, format: :long %></td>
+          <td><%= number_to_currency(lot.bids.maximum(:amount)) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+<br>
+
+<div>
+  <h2>Lotes participados</h2>
+  <% if @bidden_lots.empty? %>
+    <p>Não existem lotes participados.</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Data de Término</th>
+          <th>Valor Atual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @bidden_lots.each do |lot| %>
+        <tr>
+          <td><%= link_to lot.code, lot %></td>
+          <td><%= l lot.end_date, format: :long %></td>
+          <td><%= number_to_currency(lot.bids.maximum(:amount)) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show]
 
   def index
-    @items = Item.all
+    @items = Item.in_approved_lots
   end
 
   def show

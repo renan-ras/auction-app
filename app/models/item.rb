@@ -2,9 +2,18 @@ class Item < ApplicationRecord
   has_one_attached :image
   belongs_to :lot, optional: true
   validates :code, uniqueness: true
+  validates :weight, :width, :height, :depth, presence: true, numericality: { greater_than: 0 }
   before_validation :generate_code, on: :create
 
   validate :validate_lot_id, on: :update, if: -> { lot_id_changed? }
+
+  def self.in_approved_lots
+    joins(:lot).where(lots: { status: 'approved' })
+  end
+
+  def self.in_sold_lots
+    joins(:lot).where(lots: { status: 'sold' })
+  end
 
   private
 

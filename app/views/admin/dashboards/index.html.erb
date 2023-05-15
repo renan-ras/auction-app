@@ -1,0 +1,53 @@
+<h1>Painel do Administrador</h1>
+
+<div>
+  <h2>Leilões aguardando validação</h2>
+  <% if @lots_auction_ended.empty? %>
+    <p>Não existem leilões aguardando validação.</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Data de Término</th>
+          <th>Validar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @lots_auction_ended.each do |lot| %>
+        <tr>
+          <td><%= link_to lot.code, lot %></td>
+          <td><%= l lot.end_date, format: :long %></td>
+          <td><%= lot.lot_should_be_sold? ? 'Venda' : 'Cancelamento' %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+<div>
+  <h2>Lotes aguardando aprovação</h2>
+  <% if @lots_pending_approval.empty? %>
+    <p>Não existem lotes aguardando aprovação.</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Data de Início</th>
+          <th>Criador</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @lots_pending_approval.each do |lot| %>
+        <tr>
+          <td><%= link_to lot.code, lot %></td>
+          <td><%= l lot.start_date, format: :long %></td>
+          <td><%= lot.creator.nickname %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

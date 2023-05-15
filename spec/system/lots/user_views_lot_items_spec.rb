@@ -16,6 +16,8 @@ describe "Usuário navega até lot#show" do
       item_a.update(lot_id: lot_a.id)
       item_b.update(lot_id: lot_a.id)
 
+      lot_a.update(status: :approved, approver: admin_b)
+
       #Act
       visit '/'
       click_on 'XYZ123456'
