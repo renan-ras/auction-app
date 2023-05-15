@@ -81,7 +81,7 @@
     </strong></p>
 
 
-    <% if user_signed_in? && !current_user.admin? %>
+    <% if user_signed_in? && !current_user.admin? && @lot.auction_open_for_bids? %>
       <h3>Fazer Lance</h3>
       <%= form_with(model: [ @lot, @lot.bids.build ], local: true) do |f| %>
         <div class="form-group">
@@ -93,6 +93,18 @@
         </div>
       <% end %>
     <% end %>
+
+
+    <% if user_signed_in? && !current_user.admin? %>
+      <div> <br>
+        <% if current_user.favorite_lots.include?(@lot) %>
+          <%= button_to 'Remover dos Favoritos', favorite_path(lot_id: @lot), method: :delete %>
+        <% else %>
+          <%= button_to 'Adicionar aos Favoritos', favorites_path(lot_id: @lot), method: :post %>
+      </div>
+      <% end %>
+    <% end %>
+
 
 
 

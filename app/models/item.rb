@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   has_one_attached :image
   belongs_to :lot, optional: true
   validates :code, uniqueness: true
+  validates :name, :category, :description, presence: true
   validates :weight, :width, :height, :depth, presence: true, numericality: { greater_than: 0 }
   before_validation :generate_code, on: :create
 

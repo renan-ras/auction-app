@@ -1,2 +1,6 @@
 pt-BR:
   hello: 'Olá Mundo'
+  pending_approval: 'Aguardando Aprovação'
+  approved: 'Aprovado'
+  sold: 'Vendido'
+  canceled: 'Cancelado'

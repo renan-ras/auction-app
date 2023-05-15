@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @lots = Lot.approved
+    @open_auctions_lots = Lot.open_auctions
+    @future_auctions_lots = Lot.future_auctions
   end
 end

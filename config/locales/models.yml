@@ -33,3 +33,8 @@ pt-BR:
         user: 'Usuário'
         lot: 'Lote'
         #created_at: 'Criado em'
+  # lot_status:
+  #   pending_approval: 'Aguardando Aprovação'
+  #   approved: 'Aprovado'
+  #   sold: 'Vendido'
+  #   canceled: 'Cancelado'

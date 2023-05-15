@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :dashboards, only: [:index]
+  resources :favorites, only: [:create, :destroy]
   namespace :admin do
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :lots, only: [:index, :new, :create, :edit, :update, :destroy]

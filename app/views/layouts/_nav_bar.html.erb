@@ -26,7 +26,7 @@
       <%= link_to 'LOTES', root_path %>
       <% if user_signed_in? && current_user.admin? %> <ul><li> ADMIN => 
         <%= link_to 'Cadastrar Lotes', new_admin_lot_path %> | 
-        <%= link_to 'LOTES PRIVADOS', root_path %> </li></ul>
+        <%= link_to 'LOTES PRIVADOS', admin_lots_path %> </li></ul>
       <% end %>
     </li>
   </ul>

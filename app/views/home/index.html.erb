@@ -1,25 +1,25 @@
 <h1>Sistema de Leilões</h1>
 
-<h2>Index dos Lotes</h2>
+<h2>Leilões em andamento</h2>
 
 <div>
-  <% if @lots.empty? %>
-    <p>Não existem lotes cadastrados.</p>
+  <% if @open_auctions_lots.empty? %>
+    <p>Não existem lotes em andamento.</p>
   <% else %>
     <table>
       <thead>
         <tr>
           <th>Código</th>
           <th>Data de Início</th>
-          <th>Status</th>
+          <th>Valor Atual</th>
         </tr>
       </thead>
       <tbody>
-        <% @lots.each do |lot| %>
+        <% @open_auctions_lots.each do |lot| %>
         <tr>
           <td><%= link_to lot.code, lot %></td>
           <td><%= l lot.start_date, format: :long %></td>
-          <td><%= lot.status %></td>
+          <td><%= lot.bids.count > 0 ? number_to_currency(lot.bids.maximum(:amount)) : number_to_currency(lot.minimum_bid) %></td>
         </tr>
         <% end %>
       </tbody>
@@ -27,3 +27,29 @@
   <% end %>
 </div>
 
+<h2>Leilões Futuros</h2>
+
+<div>
+  <% if @future_auctions_lots.empty? %>
+    <p>Não existem lotes futuros.</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Data de Início</th>
+          <th>Lance Mínimo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @future_auctions_lots.each do |lot| %>
+        <tr>
+          <td><%= link_to lot.code, lot %></td>
+          <td><%= l lot.start_date, format: :long %></td>
+          <td><%= number_to_currency(lot.minimum_bid) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

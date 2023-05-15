@@ -2,6 +2,8 @@ class Lot < ApplicationRecord
   enum status: { pending_approval: 1, approved: 3, sold: 6, canceled: 8 }
   has_many :items
   has_many :bids
+  has_many :favorites
+  has_many :favorited_by_users, through: :favorites, source: :user
   belongs_to :creator, class_name: 'User'
   belongs_to :approver, class_name: 'User', optional: true
   
@@ -18,6 +20,8 @@ class Lot < ApplicationRecord
 
   before_destroy :prevent_deletion_if_not_pending_approval
 
+  scope :future_auctions, -> { approved.where("start_date > ?", Time.now) }
+  scope :open_auctions, -> { approved.where("start_date <= ? AND end_date >= ?", Time.now, Time.now) }
 
   def self.available_items
     Item.where(lot_id: nil)

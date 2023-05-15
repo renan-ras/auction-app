@@ -1,0 +1,30 @@
+<h2>Lotes Privados</h2>
+<p>Status != aprovado</p>
+
+<div>
+  <% if @lots.empty? %>
+    <p>Não existem lotes privados.</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Data de Início</th>
+          <th>Criador</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @lots.each do |lot| %>
+        <tr>
+          <td><%= link_to lot.code, lot %></td>
+          <td><%= l lot.start_date, format: :long %></td>
+          <td><%= lot.creator.nickname %></td>
+          <td><%= I18n.t(lot.status) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+

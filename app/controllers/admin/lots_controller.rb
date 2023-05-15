@@ -2,6 +2,10 @@ module Admin
   class LotsController < BaseController
     before_action :set_lot, only: [:edit, :update, :destroy, :add_item, :remove_item, :approve, :cancel, :sell]
 
+    def index
+      @lots = Lot.where.not(status: :approved)
+    end    
+
     def new
       @lot = Lot.new
     end

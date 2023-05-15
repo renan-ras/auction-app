@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
   has_many :bids
+  has_many :favorites
+  has_many :favorite_lots, through: :favorites, source: :lot
   before_validation :set_admin_status_based_on_email_domain
   validates :nickname, :cpf, presence: true
   validates :nickname, :cpf, uniqueness: true
