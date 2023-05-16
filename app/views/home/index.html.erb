@@ -1,5 +1,13 @@
 <h1>Sistema de Leilões</h1>
 
+<%= form_with url: root_path, method: :get, local: true do |form| %>
+  <%= form.label :search, "Buscar:" %>
+  <%= form.text_field :search, value: params[:search] %>
+  <%= form.submit "Buscar" %>
+<% end %>
+
+(Pesquise por: Nome do item ou código do lote)
+
 <h2>Leilões em andamento</h2>
 
 <div>
