@@ -1,0 +1,33 @@
+<h2>Bloqueio de CPFs</h2>
+
+<%= link_to 'Novo Bloqueio', new_admin_blocked_cpf_path %> <br><br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ações</th>
+      <th>Data</th>
+      <th>CPF</th>
+      <th>Usuário</th>
+      <th>Admin</th>
+      <th>Motivo do bloqueio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @blocked_cpfs.each do |blocked_cpf| %>
+      <tr>
+        <td>
+          <span style="display: inline-block;">
+            <%= button_to 'Excluir', admin_blocked_cpf_path(blocked_cpf), method: :delete, data: { confirm: 'Tem certeza que deseja excluir este CPF bloqueado?' }, class: 'button-class' %>
+          </span>
+          <%= link_to 'Editar', edit_admin_blocked_cpf_path(blocked_cpf) %>
+        </td>
+        <td><%= l(blocked_cpf.updated_at, format: :long) %></td>
+        <td><%= blocked_cpf.cpf %></td>
+        <td><%= blocked_cpf.user.present? ? blocked_cpf.user.nickname : 'Sem cadastro' %></td>
+        <td><%= blocked_cpf.blocked_by.nickname %></td>
+        <td><%= blocked_cpf.reason %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

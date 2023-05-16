@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#index', as: :dashboard
     get 'items/lotless', to: 'items#lotless_items', as: :lotless_items
     get 'items/sold', to: 'items#sold_items', as: :sold_items
+    resources :blocked_cpfs, only: [:index, :new, :create, :edit, :update, :destroy]
 
   end
 end

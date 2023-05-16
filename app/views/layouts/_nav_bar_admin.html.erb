@@ -1,0 +1,14 @@
+<ul>
+  <li>
+    <%= link_to 'Cadastrar Itens', new_admin_item_path %> | 
+    <%= link_to 'ITENS SEM LOTE', admin_lotless_items_path %> | 
+    <%= link_to 'ITENS VENDIDOS', admin_sold_items_path %>
+  </li>
+  <li>
+    <%= link_to 'Cadastrar Lotes', new_admin_lot_path %> | 
+    <%= link_to 'LOTES PRIVADOS', admin_lots_path %>
+  </li>
+  <li>
+    <%= link_to 'Bloqueios', admin_blocked_cpfs_path %>
+  </li>
+</ul>

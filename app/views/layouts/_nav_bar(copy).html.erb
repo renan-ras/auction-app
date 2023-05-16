@@ -1,0 +1,33 @@
+<nav>
+  <ul>
+    <li>
+      <% if user_signed_in? %>
+        Olá <%= user_status %>! <%= current_user.nickname %> (<%= current_user.email %>) <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+      <% else %>
+        Olá <%= user_status %>! <br><%= link_to 'Entrar', new_user_session_path %>
+      <% end %> <br>
+    </li>
+    <li>
+      <%= link_to 'HOME', root_path %>
+      <% if user_signed_in? %> | 
+        <%= link_to 'DASHBOARD (Admin)', admin_dashboard_path if current_user.admin? %>
+        <%= link_to 'DASHBOARD', dashboards_path if !current_user.admin? %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'ITENS EM LEILÃO', items_path %>
+      <% if user_signed_in? && current_user.admin? %> <ul><li> ADMIN => 
+        <%= link_to 'Cadastrar Itens', new_admin_item_path %> | 
+        <%= link_to 'ITENS SEM LOTE', admin_lotless_items_path %> | 
+        <%= link_to 'ITENS VENDIDOS', admin_sold_items_path %> </li></ul>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'LOTES', root_path %>
+      <% if user_signed_in? && current_user.admin? %> <ul><li> ADMIN => 
+        <%= link_to 'Cadastrar Lotes', new_admin_lot_path %> | 
+        <%= link_to 'LOTES PRIVADOS', admin_lots_path %> </li></ul>
+      <% end %>
+    </li>
+  </ul>
+</nav>

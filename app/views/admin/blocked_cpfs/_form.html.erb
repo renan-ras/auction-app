@@ -1,0 +1,26 @@
+<%= form_with(model: [:admin, blocked_cpf], local: true) do |form| %>
+  <% if blocked_cpf.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(blocked_cpf.errors.count, "erro") %> impediu que este CPF bloqueado fosse salvo:</h2>
+      <ul>
+        <% blocked_cpf.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :cpf %>
+    <%= form.text_field :cpf %>
+  </div>
+
+  <div>
+    <%= form.label :reason %>
+    <%= form.text_area :reason %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

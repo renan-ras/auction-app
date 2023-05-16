@@ -5,10 +5,13 @@ class User < ApplicationRecord
   has_many :bids
   has_many :favorites
   has_many :favorite_lots, through: :favorites, source: :lot
+  has_many :blocked_cpfs, foreign_key: :blocked_by_id
+  belongs_to :blocked_cpf, primary_key: :cpf, foreign_key: :cpf, optional: true
   before_validation :set_admin_status_based_on_email_domain
   validates :nickname, :cpf, presence: true
   validates :nickname, :cpf, uniqueness: true
   validate :cpf_must_be_valid
+  validate :cpf_not_blocked
 
   def cpf_valid?(cpf) # Código do CodeSaga
     return false if cpf.match(/^(.)\1*$/) # Elimina falsos positivos: 999.999.999-99, 888.888.888-88 ...
@@ -31,6 +34,10 @@ class User < ApplicationRecord
 
   def set_admin_status_based_on_email_domain
     self.admin = email.include?('@leilaodogalpao.com.br') if new_record?
+  end
+
+  def cpf_not_blocked
+    errors.add(:cpf, "Este CPF está bloqueado.") if BlockedCpf.exists?(cpf: cpf)
   end
 
 end
