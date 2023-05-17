@@ -7,41 +7,40 @@
   </ul>
 <% end %>
 
-<% is_edit_page = @item.persisted? && current_page?(edit_admin_item_path(@item)) %>
 <div style="width: 450px;">
   <%= form_with(model: [:admin, @item], local: true) do |f| %>
     <div style="margin-bottom: 10px;">
-      <%= f.label :name if is_edit_page %>
+      <%= f.label :name %>
       <%= f.text_field :name, placeholder: t("activerecord.attributes.item.name"), class: "form-control" %>
     </div>
 
     <div style="margin-bottom: 10px;">
-      <%= f.label :description if is_edit_page %>
+      <%= f.label :description %>
       <%= f.text_area :description, placeholder: t("activerecord.attributes.item.description"), class: "form-control" %>
     </div>
 
     <div style="margin-bottom: 10px;">
-      <%= f.label :weight if is_edit_page %>
+      <%= f.label :weight %>
       <%= f.number_field :weight, step: 1, min: 1, placeholder: t("activerecord.attributes.item.weight") + ' (g)', class: "form-control" %>
     </div>
 
     <div style="margin-bottom: 10px;">
-      <%= f.label :width if is_edit_page %>
+      <%= f.label :width %>
       <%= f.number_field :width, step: 1, min: 1, placeholder: t("activerecord.attributes.item.width") + ' (cm)', class: "form-control" %>
     </div>
 
     <div style="margin-bottom: 10px;">
-      <%= f.label :height if is_edit_page %>
+      <%= f.label :height %>
       <%= f.number_field :height, step: 1, min: 1, placeholder: t("activerecord.attributes.item.height") + ' (cm)', class: "form-control" %>
     </div>
 
     <div style="margin-bottom: 10px;">
-      <%= f.label :depth if is_edit_page %>
+      <%= f.label :depth %>
       <%= f.number_field :depth, step: 1, min: 1, placeholder: t("activerecord.attributes.item.depth") + ' (cm)', class: "form-control" %>
     </div>
 
     <div style="margin-bottom: 10px;">
-      <%= f.label :category if is_edit_page %>
+      <%= f.label :category %>
       <%= f.text_field :category, placeholder: t("activerecord.attributes.item.category"), class: "form-control" %>
     </div>
 

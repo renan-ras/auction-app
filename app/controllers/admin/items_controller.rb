@@ -42,6 +42,7 @@ module Admin
         flash[:notice] = 'Item removido com sucesso'
       else
         flash[:alert] = "Item não removido"
+        flash[:alert] += ": " + @item.errors.full_messages.join(", ") unless @item.errors.empty?
       end
       redirect_to items_path
     end

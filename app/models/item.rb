@@ -5,8 +5,10 @@ class Item < ApplicationRecord
   validates :name, :category, :description, presence: true
   validates :weight, :width, :height, :depth, presence: true, numericality: { greater_than: 0 }
   before_validation :generate_code, on: :create
+  before_destroy :can_be_destroyed?
 
   validate :validate_lot_id, on: :update, if: -> { lot_id_changed? }
+  validate :check_editable, on: :update
 
   def self.in_approved_lots
     joins(:lot).where(lots: { status: 'approved' })
@@ -33,6 +35,16 @@ class Item < ApplicationRecord
       lot_was = Lot.find(lot_id_was)
       errors.add(:lot_id, 'Alteração de lotes não permitida') unless (lot_was.pending_approval? || lot_was.canceled?) && (lot_id.nil? || lot.pending_approval?)
     end
+  end
+
+  def check_editable
+    errors.add(:base, 'O item só pode ser editado se não estiver em um lote ou se o lote estiver aguardando aprovação.') if lot.present? && !lot.pending_approval?
+  end
+
+  def can_be_destroyed?
+    return true if lot.nil? || lot.pending_approval?
+    errors.add(:base, 'O item só pode ser excluído se não estiver em um lote ou se o lote estiver pendente de aprovação')
+    throw :abort
   end
 
 end

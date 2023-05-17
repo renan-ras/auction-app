@@ -25,7 +25,11 @@
 
         <%= form_with(url: admin_add_item_to_lot_path(@lot), method: :post, local: true) do %>
           <%= label_tag :item_id, "Adicionar item ao lote:" %>
-          <%= select_tag :item_id, options_from_collection_for_select(Lot.available_items, "id", "name"), class: 'form-control' %>
+          
+          <%#= select_tag :item_id, options_from_collection_for_select(@available_items, "id", ->(item) { "#{item.code} - #{item.name}" }), class: 'form-control' %>
+          
+          <%= select_tag :item_id, options_for_items_select(@available_items), class: 'form-control' %>
+          
           <%= submit_tag "Adicionar", class: 'btn btn-primary', style: "margin-top: 10px;" %>
         <% end %>
         
@@ -65,7 +69,7 @@
         <%= button_to('Cancelar Lote', admin_cancel_lot_path(@lot), method: :patch, class: 'btn btn-success') %>
       <% end %>
     <% end %>
-    
+    <br>
     
     <div class='card' style="width: 22rem; display: flex; justify-content: center; " >
       <div class='card-body' style= "display: flex; flex-direction:column; justify-content: center; align-items: center;" >
