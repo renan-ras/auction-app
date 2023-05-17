@@ -9,9 +9,9 @@
         <% if question.answer.present? %>
           <p><strong>Resposta (<%= question.answered_by.nickname %>) :</strong> <%= question.answer %></p>
 
-          <%= link_to 'Editar Resposta', edit_admin_question_path(question), class: 'btn btn-outline-secondary btn-sm' if user_signed_in? && current_user.admin? %>
+          <%= link_to 'Editar Resposta', edit_admin_question_path(question), class: 'btn btn-outline-dark btn-sm' if user_signed_in? && current_user.admin? %>
         <% else %>
-          <%= render 'admin/questions/testedit', question: question if user_signed_in? && current_user.admin? %>
+          <%= render 'admin/questions/subedit', question: question if user_signed_in? && current_user.admin? %>
         <% end %>
       </div>
     </div>
@@ -19,3 +19,4 @@
 <% else %>
   <p>Nenhuma pergunta.</p>
 <% end %>
+

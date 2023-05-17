@@ -60,42 +60,43 @@
     <% if @lot.auction_waiting_validation? && user_signed_in? && current_user.admin? %>
       <h3>Validar Resultado do Leilão</h3>
       <% if @lot.lot_should_be_sold? %>
-        <%= button_to('Vender Lote', admin_sell_lot_path(@lot), method: :patch) %>
+        <%= button_to('Vender Lote', admin_sell_lot_path(@lot), method: :patch, class: 'btn btn-success') %>
       <% elsif @lot.lot_should_be_canceled? %>
-        <%= button_to('Cancelar Lote', admin_cancel_lot_path(@lot), method: :patch) %>
+        <%= button_to('Cancelar Lote', admin_cancel_lot_path(@lot), method: :patch, class: 'btn btn-success') %>
       <% end %>
     <% end %>
-    <h2>Área de Lances</h2>
-
-    <p><strong>Leilão <%= @lot.auction_status %></strong></p>
-
-
     
+    
+    <div class='card' style="width: 22rem; display: flex; justify-content: center; " >
+      <div class='card-body' style= "display: flex; flex-direction:column; justify-content: center; align-items: center;" >
+        <h2 class="card-title">Área de Lances</h2>
 
+        <p><strong>Leilão <%= @lot.auction_status %></strong></p>
 
-    <p><strong>
-    <% if @lot.bids.count > 0 %>
-      Lance Atual: <%= number_to_currency(@lot.bids.maximum(:amount)) %></strong> 
-      pelo usuário: <strong><%= @lot.bids.order(amount: :desc).first.user.nickname %>
-    <%else%>
-      <%='Nenhum lance registrado' %>
-    <%end%>
-    </strong></p>
+        <p><strong>
+        <% if @lot.bids.count > 0 %>
+          Lance Atual: <%= number_to_currency(@lot.bids.maximum(:amount)) %></strong> 
+          pelo usuário: <strong><%= @lot.bids.order(amount: :desc).first.user.nickname %>
+        <%else%>
+          <%='Nenhum lance registrado' %>
+        <%end%>
+        </strong></p>
 
-
-    <% if user_signed_in? && !current_user.admin? && @lot.auction_open_for_bids? %>
-      
-      <%= form_with(model: [ @lot, @lot.bids.build ], local: true) do |f| %>
-        <div class="form-group" style="display: inline-block;">
-          <%= f.label :amount, "Próximo Lance:" %>
-          <%= f.number_field :amount, step: 0.01, value: @lot.next_minimum_bid, class: "form-control", style: "width: 150px;" %>
+        <div>
+          <% if user_signed_in? && !current_user.admin? && @lot.auction_open_for_bids? %>
+            <%= form_with(model: [ @lot, @lot.bids.build ], local: true) do |f| %>
+              <div class="form-group" style="display: inline-block;">
+                <%= f.label :amount, "Próximo Lance:" %>
+                <%= f.number_field :amount, step: 0.01, value: @lot.next_minimum_bid, class: "form-control", style: "width: 10rem;" %>
+              </div>
+              <span >
+                <%= f.submit "Fazer Lance", class: "btn btn-danger" %>
+              </span>
+            <% end %>
+          <% end %>
         </div>
-        <span >
-          <%= f.submit "Fazer Lance", class: "btn btn-danger" %>
-        </span>
-      <% end %>
-    <% end %>
-
+      </div>
+    </div>
 
     <% if user_signed_in? && !current_user.admin? %>
       <div> <br>

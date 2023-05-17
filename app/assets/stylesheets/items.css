@@ -10,3 +10,7 @@
   object-fit: contain;
   object-position: right top;
 }
+
+.card-body {
+  background-color: #eeeeee;
+}
