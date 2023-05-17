@@ -1,26 +1,28 @@
-<%= form_with(model: [:admin, blocked_cpf], local: true) do |form| %>
-  <% if blocked_cpf.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(blocked_cpf.errors.count, "erro") %> impediu que este CPF bloqueado fosse salvo:</h2>
-      <ul>
-        <% blocked_cpf.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :cpf %>
-    <%= form.text_field :cpf %>
-  </div>
-
-  <div>
-    <%= form.label :reason %>
-    <%= form.text_area :reason %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+<% if blocked_cpf.errors.any? %>
+  <div id="error_explanation">
+    <strong><%= pluralize(blocked_cpf.errors.count, "erro") %> impediu que este CPF bloqueado fosse salvo:</strong>
+    <ul>
+      <% blocked_cpf.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
+
+<div style="width: 450px;">
+  <%= form_with(model: [:admin, blocked_cpf], local: true) do |form| %>
+
+    <div style="margin-bottom: 10px;">
+      <%#= form.label :cpf %>
+      <%= form.text_field :cpf, placeholder: t("activerecord.attributes.blocked_cpf.cpf") %>
+    </div>
+    <div style="margin-bottom: 10px;">
+      <%#= form.label :reason %>
+      <%= form.text_area :reason, placeholder: t("activerecord.attributes.blocked_cpf.reason") %>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.submit 'Enviar', class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+</div>

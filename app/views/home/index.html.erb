@@ -1,24 +1,24 @@
 <h1>Sistema de Leilões</h1>
 
 <%= form_with url: root_path, method: :get, local: true do |form| %>
-  <%= form.label :search, "Buscar:" %>
-  <%= form.text_field :search, value: params[:search] %>
-  <%= form.submit "Buscar" %>
+  <%#= form.label :search, "Buscar:" %>
+    <%= form.text_field :search, value: params[:search], placeholder: 'Nome do item ou código do lote', class:"form-control", style:"display: inline-block; width: 400px; margin-right: 10px;" %>
+    <%= form.submit "Buscar", class: 'btn btn-dark' %>
 <% end %>
 
-(Pesquise por: Nome do item ou código do lote)
 
+<br>
 <h2>Leilões em andamento</h2>
 
 <div>
   <% if @open_auctions_lots.empty? %>
     <p>Não existem lotes em andamento.</p>
   <% else %>
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>Código</th>
-          <th>Data de Início</th>
+          <th>Data de Término</th>
           <th>Valor Atual</th>
         </tr>
       </thead>
@@ -26,7 +26,7 @@
         <% @open_auctions_lots.each do |lot| %>
         <tr>
           <td><%= link_to lot.code, lot %></td>
-          <td><%= l lot.start_date, format: :long %></td>
+          <td><%= l lot.end_date, format: :long %></td>
           <td><%= lot.bids.count > 0 ? number_to_currency(lot.bids.maximum(:amount)) : number_to_currency(lot.minimum_bid) %></td>
         </tr>
         <% end %>
@@ -35,13 +35,14 @@
   <% end %>
 </div>
 
+<br>
 <h2>Leilões Futuros</h2>
 
 <div>
   <% if @future_auctions_lots.empty? %>
     <p>Não existem lotes futuros.</p>
   <% else %>
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>Código</th>

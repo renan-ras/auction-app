@@ -7,36 +7,38 @@
   </ul>
 <% end %>
 
-<%= form_with(model: [:admin, @lot], local: true) do |f| %>
-  <div>
-    <%= f.label :code %>
-    <%= f.text_field :code %>
-  </div>
+<div style="width: 450px;">
+  <%= form_with(model: [:admin, @lot], local: true) do |f| %>
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :code %>
+      <%= f.text_field :code, placeholder: t("activerecord.attributes.lot.code"), class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :start_date %>
-    <%= f.datetime_local_field :start_date %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :minimum_bid %>
+      <%= f.number_field :minimum_bid, step: 0.01, min: 0.01, placeholder: t("activerecord.attributes.lot.minimum_bid"), class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :end_date %>
-    <%= f.datetime_local_field :end_date %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :minimum_bid_increment %>
+      <%= f.number_field :minimum_bid_increment, step: 0.01, min: 0.01, placeholder: t("activerecord.attributes.lot.minimum_bid_increment"), class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :minimum_bid %>
-    <%= f.number_field :minimum_bid, step: 0.01, min: 0.01 %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%= f.label :start_date %>
+      <%= f.datetime_local_field :start_date, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :minimum_bid_increment %>
-    <%= f.number_field :minimum_bid_increment, step: 0.01, min: 0.01 %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%= f.label :end_date %>
+      <%= f.datetime_local_field :end_date, class: "form-control" %>
+    </div>
 
 
 
-  <div>
-    <%= f.submit 'Enviar' %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%= f.submit 'Enviar', class: 'btn btn-secondary' %>
+    </div>
 
-<% end %>
+  <% end %>
+</div>

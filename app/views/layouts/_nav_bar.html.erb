@@ -4,26 +4,27 @@
       <% if user_signed_in? %>
         Olá <%= user_status %>! <%= current_user.nickname %> (<%= current_user.email %>) 
         <span style="display: inline-block;">
-          <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+          <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger btn-sm' %>
         </span>
       <% else %>
-        Olá <%= user_status %>! <%= link_to 'Entrar', new_user_session_path %>
+        Olá <%= user_status %>! <%= link_to 'Entrar', new_user_session_path, class: 'btn btn-outline-success btn-sm' %>
       <% end %> <br>
     </li>
 
     <li>
       <%= link_to 'HOME', root_path %>
-      <% if user_signed_in? %> | 
-        <%= link_to 'DASHBOARD (Admin)', admin_dashboard_path if current_user.admin? %>
-        <%= link_to 'DASHBOARD', dashboards_path if !current_user.admin? %>
-      <% end %>
+    </li>
+    <li>
+      <%= link_to 'LEILÕES', root_path %>
     </li>
     <li>
       <%= link_to 'ITENS EM LEILÃO', items_path %>
     </li>
-    <li>
-      <%= link_to 'LOTES', root_path %>
-    </li>
+    <% if user_signed_in? && !current_user.admin? %>
+      <li>
+        <%= link_to 'PAINEL DO USUÁRIO', dashboards_path %>
+      </li>
+    <% end %>
   </ul>
   <% if user_signed_in? && current_user.admin? %>
     <%= render 'layouts/nav_bar_admin' %>

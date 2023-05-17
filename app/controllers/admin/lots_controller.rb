@@ -15,7 +15,7 @@ module Admin
       @lot.creator = current_user
   
       if @lot.save()
-        redirect_to root_path, notice: 'Lote cadastrado com sucesso.'
+        redirect_to @lot, notice: 'Lote cadastrado com sucesso.'
       else
         flash.now[:alert] = 'Lote não cadastrado.'
         render 'new'

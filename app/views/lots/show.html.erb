@@ -16,29 +16,31 @@
       Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br><br>
 
       <% if @lot.pending_approval? %>
-        <%= link_to('Editar', edit_admin_lot_path(@lot)) %> <br><br>
-        <%= button_to('Remover', admin_lot_path(@lot), method: :delete) %> <br>
-        <%= button_to('Aprovar', admin_approve_lot_path(@lot), method: :patch) %>
-        <br>
+        <div class="btn-group">
+        <%= link_to('Editar', edit_admin_lot_path(@lot), class: 'btn btn-outline-secondary') %> 
+        <%= button_to('Remover', admin_lot_path(@lot), method: :delete, class: 'btn btn-outline-danger') %>
+        <%= button_to('Aprovar', admin_approve_lot_path(@lot), method: :patch, class: 'btn btn-outline-success') %>
+        </div>
+        <br><br>
 
         <%= form_with(url: admin_add_item_to_lot_path(@lot), method: :post, local: true) do %>
           <%= label_tag :item_id, "Adicionar item ao lote:" %>
-          <%= select_tag :item_id, options_from_collection_for_select(Lot.available_items, "id", "name") %>
-          <%= submit_tag "Adicionar" %>
+          <%= select_tag :item_id, options_from_collection_for_select(Lot.available_items, "id", "name"), class: 'form-control' %>
+          <%= submit_tag "Adicionar", class: 'btn btn-primary', style: "margin-top: 10px;" %>
         <% end %>
         
       <% end %>
         
     <% end %>
 
-    <h3>Itens associados ao lote:</h3>
-    <div class="items-container">
+    <div class="items-container" style="margin-top: 20px;">
+      <h3>Itens associados ao lote:</h3>
       <% @lot.items.each do |item| %>
         <div class="item-card" style="display: flex; margin-bottom: 20px;">
           <div style="margin-right: 20px;">
-            <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-primary' %>
+            <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-secondary btn-sm' %>
             <br><br>
-            <%= button_to('Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post) if user_signed_in? && current_user.admin? && @lot.pending_approval? %>
+            <%= button_to('Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post, class: 'btn btn-outline-danger btn-sm') if user_signed_in? && current_user.admin? && @lot.pending_approval? %>
           </div>
           <div>
             <%= image_tag(item.image.present? ? item.image : "imagem_padrao.jpg", class: "item-image", style: "width: 100px; height: 100px;") %>
@@ -82,15 +84,15 @@
 
 
     <% if user_signed_in? && !current_user.admin? && @lot.auction_open_for_bids? %>
-      <h3>Fazer Lance</h3>
+      
       <%= form_with(model: [ @lot, @lot.bids.build ], local: true) do |f| %>
-        <div class="form-group">
-          <%= f.label :amount, "Próximo Lance" %>
-          <%= f.number_field :amount, step: 0.01, value: @lot.next_minimum_bid, class: "form-control" %>
+        <div class="form-group" style="display: inline-block;">
+          <%= f.label :amount, "Próximo Lance:" %>
+          <%= f.number_field :amount, step: 0.01, value: @lot.next_minimum_bid, class: "form-control", style: "width: 150px;" %>
         </div>
-        <div class="text-right">
-          <%= f.submit "Fazer Lance", class: "btn btn-primary" %>
-        </div>
+        <span >
+          <%= f.submit "Fazer Lance", class: "btn btn-danger" %>
+        </span>
       <% end %>
     <% end %>
 
@@ -98,13 +100,13 @@
     <% if user_signed_in? && !current_user.admin? %>
       <div> <br>
         <% if current_user.favorite_lots.include?(@lot) %>
-          <%= button_to 'Remover dos Favoritos', favorite_path(lot_id: @lot), method: :delete %>
+          <%= button_to 'Remover dos Favoritos', favorite_path(lot_id: @lot), method: :delete, class: 'btn btn-dark' %>
         <% else %>
-          <%= button_to 'Adicionar aos Favoritos', favorites_path(lot_id: @lot), method: :post %>
+          <%= button_to 'Adicionar aos Favoritos', favorites_path(lot_id: @lot), method: :post, class: 'btn btn-dark' %>
       </div>
       <% end %>
     <% end %>
-
+    <br>
 
 
 

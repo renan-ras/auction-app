@@ -14,14 +14,15 @@
     <div>Profundidade: <%= @item.depth %></div>
     <div>Categoria: <%= @item.category %></div>
     <div>Código: <%= @item.code %></div>
-    <div>Lote: <%= @item.lot ? @item.lot.code : 'Sem lote associado' %> </div>
+    <div>Lote: <%= @item.lot ? link_to(@item.lot.code, @item.lot) : 'Sem lote associado' %> </div>
   </div>
-  
+  <%#= link_to(@item.lot.code, @item.lot) %>
 </div>
 
-<%= link_to('Todos os itens', items_path) %> <br>
+<%#= link_to('Todos os itens', items_path) %>
 
 <% if user_signed_in? && current_user.admin? %>
-  <%= link_to('Editar', edit_admin_item_path(@item)) %> <br>
-  <%= button_to('Remover', admin_item_path(@item), method: :delete) %>  
+  <%= link_to('Editar', edit_admin_item_path(@item), class: 'btn btn-outline-secondary', style:"margin-top: 10px;") %> <br>
+  <%= button_to('Remover', admin_item_path(@item), method: :delete, class: 'btn btn-outline-danger', style:"margin-top: 10px;") %>  
 <% end %>
+<br><br>

@@ -18,7 +18,7 @@ module Admin
       @item = Item.new(item_params)
 
       if @item.save
-        redirect_to items_path, notice: 'Item cadastrado com sucesso.'
+        redirect_to @item, notice: 'Item cadastrado com sucesso.'
       else
         flash.now[:alert] = 'Item não cadastrado.'
         render 'new'

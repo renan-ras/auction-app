@@ -7,55 +7,53 @@
   </ul>
 <% end %>
 
-<%= form_with(model: [:admin, @item], local: true) do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+<div style="width: 450px;">
+  <%= form_with(model: [:admin, @item], local: true) do |f| %>
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :name %>
+      <%= f.text_field :name, placeholder: t("activerecord.attributes.item.name"), class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :description %>
+      <%= f.text_area :description, placeholder: t("activerecord.attributes.item.description"), class: "form-control" %>
+    </div>
 
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :weight %>
+      <%= f.number_field :weight, step: 1, min: 1, placeholder: t("activerecord.attributes.item.weight") + ' (g)', class: "form-control" %>
+    </div>
 
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :width %>
+      <%= f.number_field :width, step: 1, min: 1, placeholder: t("activerecord.attributes.item.width") + ' (cm)', class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :image %> (opcional)
-    <%= f.file_field :image %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :height %>
+      <%= f.number_field :height, step: 1, min: 1, placeholder: t("activerecord.attributes.item.height") + ' (cm)', class: "form-control" %>
+    </div>
 
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :depth %>
+      <%= f.number_field :depth, step: 1, min: 1, placeholder: t("activerecord.attributes.item.depth") + ' (cm)', class: "form-control" %>
+    </div>
 
+    <div style="margin-bottom: 10px;">
+      <%#= f.label :category %>
+      <%= f.text_field :category, placeholder: t("activerecord.attributes.item.category"), class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :weight %> (g)
-    <%= f.number_field :weight, step: 1, min: 1 %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <%= f.label :image %> (opcional)
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.label :width %> (cm)
-    <%= f.number_field :width, step: 1, min: 1 %>
-  </div>
+    
+    <div>
+      <%= f.submit 'Enviar', class: 'btn btn-secondary' %>
+    </div>
 
-  <div>
-    <%= f.label :height %> (cm)
-    <%= f.number_field :height, step: 1, min: 1 %>
-  </div>
-
-  <div>
-    <%= f.label :depth %> (cm)
-    <%= f.number_field :depth, step: 1, min: 1 %>
-  </div>
-
-  <div>
-    <%= f.label :category %>
-    <%= f.text_field :category %>
-  </div>
-
-
-
-  <div>
-    <%= f.submit 'Enviar' %>
-  </div>
-
-<% end %>
+  <% end %>
+</div>
+<br><br>

@@ -5,6 +5,7 @@ pt-BR:
       lot: Lote
       item: Item
       bid: Lance
+      blocked_cpf: 'CPF Bloqueado'
     attributes:
       user:
         email: 'E-mail'
@@ -32,9 +33,6 @@ pt-BR:
         amount: 'Quantia'
         user: 'Usuário'
         lot: 'Lote'
-        #created_at: 'Criado em'
-  # lot_status:
-  #   pending_approval: 'Aguardando Aprovação'
-  #   approved: 'Aprovado'
-  #   sold: 'Vendido'
-  #   canceled: 'Cancelado'
+      blocked_cpf:
+        reason: 'Motivo'
+        cpf: 'CPF'

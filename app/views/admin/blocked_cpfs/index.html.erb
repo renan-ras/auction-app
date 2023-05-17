@@ -1,8 +1,8 @@
 <h2>Bloqueio de CPFs</h2>
 
-<%= link_to 'Novo Bloqueio', new_admin_blocked_cpf_path %> <br><br>
+<%= link_to 'Novo Bloqueio', new_admin_blocked_cpf_path, class: 'btn btn-primary' %> <br><br>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Ações</th>
@@ -23,9 +23,9 @@
         <tr>
           <td>
             <span style="display: inline-block;">
-              <%= button_to 'Excluir', admin_blocked_cpf_path(blocked_cpf), method: :delete, data: { confirm: 'Tem certeza que deseja excluir este CPF bloqueado?' }, class: 'button-class' %>
+              <%= button_to 'Excluir', admin_blocked_cpf_path(blocked_cpf), method: :delete, data: { confirm: 'Tem certeza que deseja excluir este CPF bloqueado?' }, class: 'btn btn-outline-danger' %>
             </span>
-            <%= link_to 'Editar', edit_admin_blocked_cpf_path(blocked_cpf) %>
+            <%= link_to 'Editar', edit_admin_blocked_cpf_path(blocked_cpf), class: 'btn btn-outline-secondary' %>
           </td>
           <td><%= l(blocked_cpf.updated_at, format: :long) %></td>
           <td><%= blocked_cpf.cpf %></td>
@@ -38,20 +38,3 @@
   </tbody>
 </table>
 
-
-<style>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
-  }
-
-  th {
-    background-color: #f2f2f2;
-  }
-</style>

@@ -5,7 +5,7 @@
   <% if current_user.favorite_lots.empty? %>
     <p>Não existem lotes favoritados. Acesse um lote e clique em adicionar aos favoritos.</p>
   <% else %>
-    <table>
+    <table class= 'table'>
       <thead>
         <tr>
           <th>Código</th>
@@ -34,7 +34,7 @@
   <% if @won_auction_lots.empty? %>
     <p>Não existem lotes arrematados.</p>
   <% else %>
-    <table>
+    <table class= 'table'>
       <thead>
         <tr>
           <th>Código</th>
@@ -62,7 +62,7 @@
   <% if @bidden_lots.empty? %>
     <p>Não existem lotes participados.</p>
   <% else %>
-    <table>
+    <table class= 'table'>
       <thead>
         <tr>
           <th>Código</th>
