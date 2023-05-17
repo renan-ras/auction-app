@@ -11,7 +11,7 @@
     Incremento Mínimo: <%= @lot.minimum_bid_increment %> <br>
 
     <% if user_signed_in? && current_user.admin? %>
-      Status: <%= @lot.status %> <br>
+      Status: <%= t @lot.status %> <br>
       Criador: <%= @lot.creator.nickname %> <br>
       Aprovador: <%= @lot.approver.nickname if @lot.approver %> <br><br>
 
@@ -40,7 +40,7 @@
     <div class="items-container" style="margin-top: 20px;">
       <h3>Itens associados ao lote:</h3>
       <% @lot.items.each do |item| %>
-        <div class="item-card" style="display: flex; margin-bottom: 20px;">
+        <div class="item-card" id="item-<%= item.id %>" style="display: flex; margin-bottom: 20px;">
           <div style="margin-right: 20px;">
             <%= link_to 'Ver Detalhes', item_path(item), class: 'btn btn-secondary btn-sm' %>
             <br><br>

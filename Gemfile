@@ -30,6 +30,9 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem 'database_cleaner'
+end
 
 gem "devise", "~> 4.9"
 # gem 'activestorage', '~> 7.0', '>= 7.0.4.3'
