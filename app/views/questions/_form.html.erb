@@ -1,0 +1,7 @@
+<% if user_signed_in? && !current_user.admin? %>
+  <h3>Faça uma pergunta sobre o lote</h3>
+  <%= form_with(model: [ @lot, @lot.questions.build ], local: true) do |f| %>
+    <%= f.text_area :content, class: 'form-control', placeholder: 'Escreva sua pergunta aqui...' %>
+    <%= f.submit 'Enviar pergunta', class: 'btn btn-primary mt-2' %>
+  <% end %>
+<% end %>

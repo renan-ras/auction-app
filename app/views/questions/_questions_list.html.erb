@@ -1,0 +1,21 @@
+<% if questions.any? %>
+  <% questions.each do |question| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <%# Link para lote %>
+        <%= link_to "LOTE #{question.lot.code}", question.lot, class: 'btn btn-outline-secondary btn-sm', style: 'margin-bottom: 10px;' if user_signed_in? && current_user.admin? && !current_page?(lot_path(question.lot)) %>
+
+        <p><strong><%= question.user.nickname %>:</strong> <%= question.content %></p>
+        <% if question.answer.present? %>
+          <p><strong>Resposta (<%= question.answered_by.nickname %>) :</strong> <%= question.answer %></p>
+
+          <%= link_to 'Editar Resposta', edit_admin_question_path(question), class: 'btn btn-outline-secondary btn-sm' if user_signed_in? && current_user.admin? %>
+        <% else %>
+          <%= render 'admin/questions/testedit', question: question if user_signed_in? && current_user.admin? %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>Nenhuma pergunta.</p>
+<% end %>

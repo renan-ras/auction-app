@@ -1,0 +1,22 @@
+
+
+<%= form_with(model: [:admin, question], local: true) do |form| %>
+  <!--
+  <div>
+    <strong>Pergunta:</strong>
+    <%= question.content %>
+  </div>
+  -->
+  <div>
+    <%#= form.label :answer, "Resposta" %>
+    <%= form.text_area :answer, class: "form-control", placeholder: 'Escreva sua resposta aqui...' %>
+  </div>
+
+  <div>
+    <%= form.check_box :hidden, class: 'form-check-input' %> <%= form.label :hidden, "Ocultar pergunta", class: 'form-check-label' %>
+  </div>
+
+  <div>
+    <%= form.submit 'Enviar resposta', class: 'btn btn-primary mt-2' %>
+  </div>
+<% end %>

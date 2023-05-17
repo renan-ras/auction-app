@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :favorites
   has_many :favorite_lots, through: :favorites, source: :lot
   has_many :blocked_cpfs, foreign_key: :blocked_by_id
+  has_many :questions
+  has_many :answered_questions, class_name: "Question", foreign_key: "answered_by_id"
   belongs_to :blocked_cpf, primary_key: :cpf, foreign_key: :cpf, optional: true
   before_validation :set_admin_status_based_on_email_domain
   validates :nickname, :cpf, presence: true

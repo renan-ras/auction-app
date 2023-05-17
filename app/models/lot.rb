@@ -4,6 +4,7 @@ class Lot < ApplicationRecord
   has_many :bids
   has_many :favorites
   has_many :favorited_by_users, through: :favorites, source: :user
+  has_many :questions
   belongs_to :creator, class_name: 'User'
   belongs_to :approver, class_name: 'User', optional: true
   

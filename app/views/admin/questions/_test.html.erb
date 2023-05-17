@@ -1,0 +1,6 @@
+<h2>Responder Pergunta</h2>
+<%= form_with(model: [:admin, @question], local: true) do |f| %>
+  <%= f.text_area :answer, class: 'form-control', placeholder: 'Escreva sua resposta aqui...' %>
+  <%= f.check_box :hidden, class: 'form-check-input' %> Ocultar pergunta<br>
+  <%= f.submit 'Enviar resposta', class: 'btn btn-primary mt-2' %>
+<% end %>

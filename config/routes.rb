@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
   resources :lots, only: [:show] do
     resources :bids, only: [:create]
+    resources :questions, only: [:create, :index]
   end
 
   resources :dashboards, only: [:index]
@@ -20,6 +21,6 @@ Rails.application.routes.draw do
     get 'items/lotless', to: 'items#lotless_items', as: :lotless_items
     get 'items/sold', to: 'items#sold_items', as: :sold_items
     resources :blocked_cpfs, only: [:index, :new, :create, :edit, :update, :destroy]
-
+    resources :questions, only: [:index, :edit, :update]
   end
 end
