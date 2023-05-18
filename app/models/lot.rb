@@ -12,7 +12,7 @@ class Lot < ApplicationRecord
   validates :minimum_bid, presence: true, numericality: { greater_than: 0 }
   validates :minimum_bid_increment, presence: true, numericality: { greater_than: 0 }
   validates :start_date, presence: true
-  validates :start_date, comparison: { greater_than: Time.now }, on: [:create, :update], unless: -> { status == 'sold' || status == 'canceled' }
+  validates :start_date, comparison: { greater_than: Time.current }, on: [:create, :update], unless: -> { status == 'sold' || status == 'canceled' }
   validates :end_date, presence: true, comparison: { greater_than: :start_date }
 
   validate :validate_approval, on: :update, if: -> { approver_id_changed? }
@@ -21,23 +21,23 @@ class Lot < ApplicationRecord
 
   before_destroy :prevent_deletion_if_not_pending_approval
 
-  scope :future_auctions, -> { approved.where("start_date > ?", Time.now) }
-  scope :open_auctions, -> { approved.where("start_date <= ? AND end_date >= ?", Time.now, Time.now) }
+  scope :future_auctions, -> { approved.where("start_date > ?", Time.current) }
+  scope :open_auctions, -> { approved.where("start_date <= ? AND end_date >= ?", Time.current, Time.current) }
 
   def self.available_items
     Item.where(lot_id: nil)
   end
 
   def auction_ready?
-    approved? && Time.now < start_date
+    approved? && Time.current < start_date
   end
 
   def auction_open_for_bids?
-    approved? && Time.now.between?(start_date, end_date)
+    approved? && Time.current.between?(start_date, end_date)
   end
 
   def auction_ended?
-    !pending_approval? && Time.now > end_date
+    !pending_approval? && Time.current > end_date
   end
 
   def auction_status
@@ -76,7 +76,7 @@ class Lot < ApplicationRecord
   end
   
   def auction_waiting_validation?
-    approved? && Time.now > end_date
+    approved? && Time.current > end_date
   end
   
   def lot_should_be_sold?
