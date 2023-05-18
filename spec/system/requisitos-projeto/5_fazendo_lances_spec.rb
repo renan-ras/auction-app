@@ -18,7 +18,7 @@ describe "Usuário" do
       item_c.update(lot_id: lot_a.id)
       lot_a.update(status: :approved, approver: admin_b)
     
-      travel_to start_lot_a + 1.hour # lot_b "Em Andamento"
+      travel_to start_lot_a + 1.hour # lot_a "Em Andamento"
       
       # Fazer 1º Lance
       visit root_path
@@ -48,7 +48,7 @@ describe "Usuário" do
       item_c.update(lot_id: lot_a.id)
       lot_a.update(status: :approved, approver: admin_b)
   
-      travel_to start_lot_a + 1.hour # lot_b "Em Andamento"
+      travel_to start_lot_a + 1.hour # lot_a "Em Andamento"
       
       # Fazer 1º Lance
       login_as user_a
