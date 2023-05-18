@@ -1,6 +1,6 @@
 <h1>Painel do Usuário</h1>
 
-<div>
+<div id="favorite_lots">
   <h2>Lotes Favoritos</h2>
   <% if current_user.favorite_lots.empty? %>
     <p>Não existem lotes favoritados. Acesse um lote e clique em adicionar aos favoritos.</p>
@@ -29,7 +29,7 @@
 </div>
 
 
-<div>
+<div id="won_lots">
   <h2>Lotes arrematados</h2>
   <% if @won_auction_lots.empty? %>
     <p>Não existem lotes arrematados.</p>
@@ -57,7 +57,7 @@
 
 <br>
 
-<div>
+<div id="bided_lots">
   <h2>Lotes participados</h2>
   <% if @bidden_lots.empty? %>
     <p>Não existem lotes participados.</p>
