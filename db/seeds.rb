@@ -1,14 +1,3 @@
-# Limpar Base de Dados?
-# User.destroy_all
-# Item.destroy_all
-# Lot.destroy_all
-# Bid.destroy_all
-# BlockedCpf.destroy_all
-# Favorite.destroy_all
-# Question.destroy_all
-
-
-
 # Criação de Itens
 
 item_a = Item.create!(name: 'Celular Galaxy S21', description: 'Smartphone Samsung com 128GB de armazenamento', weight: 171, width: 7, height: 15, depth: 1, category: 'Eletrônicos')
@@ -24,7 +13,7 @@ item_j = Item.create!(name: 'Console Xbox Series X', description: 'Console Micro
 item_k = Item.create!(name: 'Monitor Gamer ASUS VG245H', description: 'Monitor Gamer LED 24" Full HD Widescreen', weight: 5500, width: 57, height: 41, depth: 21, category: 'Eletrônicos')
 item_l = Item.create!(name: 'Roteador Wi-Fi TP-Link Archer C6', description: 'Roteador Wireless Dual Band AC1200', weight: 350, width: 14, height: 4, depth: 23, category: 'Eletrônicos')
 item_m = Item.create!(name: 'Smart TV LED 43" Samsung', description: 'Smart TV Crystal UHD 4K 2020 TU7000', weight: 8000, width: 96, height: 56, depth: 6, category: 'Eletrônicos')
-item_n = Item.create!(name: 'Ar Condicionado Split Inverter 9000 BTUs', description: 'Ar-Condicionado Split Inverter LG Dual Inverter', weight: 8500, width: 84, height: 30.8, depth: 18.9, category: 'Eletrodomésticos')
+item_n = Item.create!(name: 'Ar Condicionado Split Inverter 9000 BTUs', description: 'Ar-Condicionado Split Inverter LG Dual Inverter', weight: 8500, width: 84, height: 31, depth: 19, category: 'Eletrodomésticos')
 item_o = Item.create!(name: 'Refrigerador Frost Free 275L Electrolux', description: 'Geladeira/Refrigerador Electrolux Branco', weight: 43000, width: 60, height: 169, depth: 69, category: 'Eletrodomésticos')
 item_p = Item.create!(name: 'Fogão 5 Bocas Consul', description: 'Fogão Consul 5 Bocas com Mesa de Vidro', weight: 28000, width: 76, height: 96, depth: 69, category: 'Eletrodomésticos')
 item_q = Item.create!(name: 'Máquina de Lavar Brastemp 12kg', description: 'Máquina de Lavar Brastemp 12kg', weight: 37000, width: 62, height: 106, depth: 69, category: 'Eletrodomésticos')
@@ -45,11 +34,11 @@ user_b = User.create!(nickname: 'Joao', email: 'joao7@email.com.br', password: p
 user_c = User.create!(nickname: 'Manoela', email: 'manu@email.com.br', password: password, cpf: '59113983709')
 user_d = User.create!(nickname: 'Darci', email: 'dada@email.com.br', password: password, cpf: '56896226722')
 user_e = User.create!(nickname: 'Lana', email: 'lang@email.com.br', password: password, cpf: '44811903706')
+user_f = User.create!(nickname: 'Renan', email: 'renan@campuscode.com.br', password: password, cpf: '06871624163')
 
-admin_a = User.create!(nickname: 'Ad_jose', email: 'jose@leilaodogalpao.com.br', password: password, cpf: '56086147396')
+admin_a = User.create!(nickname: 'Ad_joao_cc', email: 'skywalker@leilaodogalpao.com.br', password: password, cpf: '56086147396')
 admin_b = User.create!(nickname: 'Ad_debora', email: 'debs@leilaodogalpao.com.br', password: password, cpf: '25488078274')
 admin_c = User.create!(nickname: 'Ad_bruna', email: 'bruh@leilaodogalpao.com.br', password: password, cpf: '31290135983')
-
 
 #Valores padrão para lotes
 minimum_bid = 200
@@ -80,24 +69,47 @@ start_date = Time.current - 1.hour
 end_date = Time.current + 3.days
 
 lot_d = Lot.new(code: 'FGH123789', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_c)
+lot_d.save(validate: false)
 item_v.update(lot_id: lot_d.id)
 item_u.update(lot_id: lot_d.id)
 item_t.update(lot_id: lot_d.id)
 lot_d.update(status: :approved, approver: admin_a)
 lot_d.save(validate: false)
 
+bid_a = Bid.new(amount: minimum_bid, user: user_a, lot: lot_d, created_at: start_date)
+bid_a.save(validate: false)
+bid_b = Bid.new(amount: minimum_bid+minimum_bid_increment, user: user_b, lot: lot_d, created_at: start_date)
+bid_b.save(validate: false)
+bid_c = Bid.new(amount: minimum_bid+minimum_bid_increment*2, user: user_e, lot: lot_d, created_at: start_date)
+bid_c.save(validate: false)
+
 lot_e = Lot.new(code: 'CDE890456', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_c)
+lot_e.save(validate: false)
 item_b.update(lot_id: lot_e.id)
 item_c.update(lot_id: lot_e.id)
 item_d.update(lot_id: lot_e.id)
 lot_e.update(status: :approved, approver: admin_b)
 lot_e.save(validate: false)
 
+question_a = Question.new(lot: lot_e, user: user_d, content: 'Aceitam cheque?', answer: 'Não aceitamos. Leia mais em nosso FAQ.', answered_by: admin_a, created_at: start_date, updated_at: start_date+1.hour)
+question_a.save(validate: false)
+
 lot_f = Lot.new(code: 'ZAB567123', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_a)
+lot_f.save(validate: false)
 item_z.update(lot_id: lot_f.id)
 item_y.update(lot_id: lot_f.id)
 lot_f.update(status: :approved, approver: admin_b)
 lot_f.save(validate: false)
+
+bid_a = Bid.new(amount: minimum_bid+50, user: user_c, lot: lot_f, created_at: start_date)
+bid_a.save(validate: false)
+bid_b = Bid.new(amount: minimum_bid+50+minimum_bid_increment, user: user_d, lot: lot_f, created_at: start_date)
+bid_b.save(validate: false)
+bid_c = Bid.new(amount: minimum_bid+50+minimum_bid_increment*2, user: user_f, lot: lot_f, created_at: start_date)
+bid_c.save(validate: false)
+
+question_a = Question.new(lot: lot_f, user: user_f, content: 'Oi João, olha eu aqui! :D', created_at: start_date+1.hour)
+question_a.save(validate: false)
 
 # Lotes encerrados >> start_date: 1.day.ago, end_date: 1.hour.ago
 start_date = Time.current - 1.day
@@ -105,23 +117,40 @@ end_date = Time.current - 1.hour
 
 # 1 Lote VENDIDO
 lot_g = Lot.new(code: 'WXY234890', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_a)
+lot_g.save(validate: false)
 item_a.update(lot_id: lot_g.id)
 lot_g.update(status: :sold, approver: admin_b)
 lot_g.save(validate: false)
 
+bid_a = Bid.new(amount: minimum_bid, user: user_a, lot: lot_g, created_at: start_date)
+bid_a.save(validate: false)
+bid_b = Bid.new(amount: minimum_bid+minimum_bid_increment, user: user_b, lot: lot_g, created_at: start_date)
+bid_b.save(validate: false)
+
+question_a = Question.new(lot: lot_g, user: user_d, content: 'Muito barato. Tá funcionando?',answer: 'Está sim, apenas com um risco na tela', answered_by: admin_c, created_at: start_date,updated_at: start_date+1.hour)
+question_a.save(validate: false)
+
 # 1 Lote CANCELADO
 lot_h = Lot.new(code: 'TUV012789', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_a)
+lot_h.save(validate: false)
 lot_h.update(status: :canceled, approver: admin_b)
 lot_h.save(validate: false)
 
-# 2 Lotes aguardando VALIDAÇÃO - 1 Compra, 1 Venda
+# 2 Lotes aguardando VALIDAÇÃO - 1 Venda, 1 Cancelado
 lot_i = Lot.new(code: 'QRS789456', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_c)
+lot_i.save(validate: false)
 item_x.update(lot_id: lot_i.id)
 item_w.update(lot_id: lot_i.id)
 lot_i.update(status: :approved, approver: admin_b)
 lot_i.save(validate: false)
 
+bid_a = Bid.new(amount: minimum_bid+50, user: user_c, lot: lot_i, created_at: start_date)
+bid_a.save(validate: false)
+bid_b = Bid.new(amount: minimum_bid+50+minimum_bid_increment, user: user_d, lot: lot_i, created_at: start_date)
+bid_b.save(validate: false)
+
 lot_j = Lot.new(code: 'NOP456123', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_c)
+lot_j.save(validate: false)
 item_s.update(lot_id: lot_j.id)
 item_r.update(lot_id: lot_j.id)
 lot_j.update(status: :approved, approver: admin_b)
