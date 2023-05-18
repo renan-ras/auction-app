@@ -10,7 +10,7 @@
 <br>
 <h2>Leilões em andamento</h2>
 
-<div>
+<div id="open_auctions_lots">
   <% if @open_auctions_lots.empty? %>
     <p>Não existem lotes em andamento.</p>
   <% else %>
@@ -38,7 +38,7 @@
 <br>
 <h2>Leilões Futuros</h2>
 
-<div>
+<div id="future_auctions_lots">
   <% if @future_auctions_lots.empty? %>
     <p>Não existem lotes futuros.</p>
   <% else %>
