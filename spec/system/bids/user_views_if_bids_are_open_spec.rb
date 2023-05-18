@@ -20,7 +20,7 @@ def create_approved_lot(start_date, end_date, minimum_bid, minimum_bid_increment
   lot_a
 end
 
-describe "Usuário navega até lot#show" do
+describe "Visitante navega até a página de leilão" do
   context "e analise se os lances estão aberto ou não" do
     it "antes da execução do leilão" do
       # Criar lote com itens
@@ -78,17 +78,9 @@ describe "Usuário navega até lot#show" do
       # Navegar até a página APÓS a execução do leilão
       travel_to end_date + 1.day
       visit '/'
-      click_on lot_a.code
       
       # Verificação de informações de leilão Encerrado
-      expect(page).to  have_content 'Leilão Encerrado'
-      expect(page).not_to  have_content 'Leilão Em Andamento'
-      expect(page).not_to  have_content 'Leilão Não Iniciado'
-      expect(page).not_to  have_content 'Leilão Em Desenvolvimento'
-
-      expect(page).to  have_content 'Moto G'
-      expect(page).to  have_content 'Suporte de Celular'
-      expect(page).to  have_content 'Microondas'
+      expect(page).not_to  have_link lot_a.code
     end
   
   end
