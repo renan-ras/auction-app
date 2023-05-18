@@ -102,15 +102,15 @@
       </div>
     </div>
 
-    <% if user_signed_in? && !current_user.admin? %>
-      <div> <br>
-        <% if current_user.favorite_lots.include?(@lot) %>
-          <%= button_to 'Remover dos Favoritos', favorite_path(lot_id: @lot), method: :delete, class: 'btn btn-dark' %>
-        <% else %>
-          <%= button_to 'Adicionar aos Favoritos', favorites_path(lot_id: @lot), method: :post, class: 'btn btn-dark' %>
-      </div>
+    <div> <br>
+      <% if user_signed_in? && !current_user.admin? %>
+          <% if current_user.favorite_lots.include?(@lot) %>
+            <%= button_to 'Remover dos Favoritos', favorite_path(lot_id: @lot), method: :delete, class: 'btn btn-dark' %>
+          <% else %>
+            <%= button_to 'Adicionar aos Favoritos', favorites_path(lot_id: @lot), method: :post, class: 'btn btn-dark' %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
     <br>
 
 
