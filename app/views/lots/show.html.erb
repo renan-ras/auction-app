@@ -49,9 +49,9 @@
             <%= button_to('Remover do lote', admin_remove_item_from_lot_path(@lot, item_id: item.id), method: :post, class: 'btn btn-outline-danger btn-sm') if user_signed_in? && current_user.admin? && @lot.pending_approval? %>
           </div>
           <div class="col-2">
-            <%= image_tag(item.image.present? ? item.image : "imagem_padrao.jpg", class: "item-image", style: "width: 100px; height: 100px;") %>
+            <%= image_tag(item.image.present? ? item.image : "imagem_padrao.jpg", class: "item-image", style: "width: 100px; height: 100px; ") %>
           </div>
-          <div class="col">
+          <div class="col" style = "margin-left: 20px;" >
             <div>Nome: <%= item.name %></div>
             <div>Descrição: <%= item.description %></div>
             <div>Peso: <%= item.weight %> g</div>

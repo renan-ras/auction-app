@@ -18,6 +18,7 @@ class Lot < ApplicationRecord
   validate :validate_approval, on: :update, if: -> { approver_id_changed? }
   validate :status_transition_validation, on: :update, if: -> { status_changed? }
   validate :at_least_one_item, on: :update, if: -> { status_changed? && status == 'approved' }
+  validate :creator_and_approver_must_be_admin
 
   before_destroy :prevent_deletion_if_not_pending_approval
 
@@ -126,6 +127,11 @@ class Lot < ApplicationRecord
       errors.add(:base, "Lotes com status diferente de 'aguardando aprovação' não podem ser deletados")
       throw(:abort)
     end
+  end
+
+  def creator_and_approver_must_be_admin
+    errors.add(:creator, 'deve ser um administrador') unless creator.admin?
+    errors.add(:approver, 'deve ser um administrador') if approver && !approver.admin?
   end
 
 end

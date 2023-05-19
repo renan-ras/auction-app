@@ -27,6 +27,15 @@ item_x = Item.create!(name: 'Piano Digital Yamaha P-125', description: 'Piano Di
 item_y = Item.create!(name: 'Guitarra Ibanez RG450DX', description: 'Guitarra Elétrica Ibanez RG450DX', weight: 3300, width: 32, height: 105, depth: 5, category: 'Instrumentos Musicais')
 item_z = Item.create!(name: 'Bateria Acústica Mapex Prodigy', description: 'Bateria Acústica Mapex Prodigy', weight: 40000, width: 200, height: 100, depth: 200, category: 'Instrumentos Musicais')
 
+
+items = Item.order(:id)
+image_files = (1..26).map { |n| "#{n}.png" } 
+
+items.zip(image_files).each do |item, image_file|
+  item.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_file)), filename: image_file, content_type: 'image/png')
+end
+
+
 ##Criação de usuários e admins
 password = 123456
 user_a = User.create!(nickname: 'Ronaldinho', email: 'gaucho@email.com.br', password: password, cpf: '42513565606')
