@@ -1,5 +1,3 @@
-# Criação de Itens
-
 item_a = Item.create!(name: 'Celular Galaxy S21', description: 'Smartphone Samsung com 128GB de armazenamento', weight: 171, width: 7, height: 15, depth: 1, category: 'Eletrônicos')
 item_b = Item.create!(name: 'Teclado Mecânico RGB', description: 'Teclado mecânico com iluminação RGB', weight: 800, width: 35, height: 2, depth: 13, category: 'Periféricos')
 item_c = Item.create!(name: 'Mochila para Notebook', description: 'Mochila resistente a água para notebooks até 15.6"', weight: 900, width: 30, height: 45, depth: 15, category: 'Acessórios')
