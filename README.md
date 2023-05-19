@@ -1,36 +1,22 @@
 # README
 
-Projeto de Leilão - Planilha de Estudos [EXCEL]
+seeds.rb: Rodar rails db:reset ou **rails db:seed** para carregar a base de dados de exemplo.
+
+Esboços que ajudaram a criar o projeto, mas não estão atualizados.
+
+Projeto de Leilão - Planilha de Estudos
 https://docs.google.com/spreadsheets/d/1zl_ZktyqOILeP_3NLTzAmE1udxIY7tqg9e3bY42rfFE/edit?usp=sharing
 
-Decisões - [WORD]
-https://docs.google.com/document/d/1IPDHsl3f6XOXdLJDev6LfN_cnb3P59mh3dzS86TJZrg/edit?usp=sharing
 
+Gems adicionadas:
+```ruby
+group :test do
+  gem 'database_cleaner'
+end
 
+gem "devise", "~> 4.9"
+```
 
+Foi usada a gem 'database_cleaner' devido a alguns problemas com persistência de dados durante os testes.
 
-
-
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Devise para autenticação de usuários.

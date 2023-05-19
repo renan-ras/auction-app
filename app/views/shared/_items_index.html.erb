@@ -1,7 +1,6 @@
 <%= link_to 'Novo Item', new_admin_item_path, class: 'btn btn-primary' if user_signed_in? && current_user.admin? %>
 <br><br>
 
-
 <div class="items-container">
   <% @items.each do |item| %>
     <div class="item-card" style="display: flex; align-items: center; justify-content: left; margin-bottom: 20px;">
