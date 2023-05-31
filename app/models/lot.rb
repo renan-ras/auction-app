@@ -11,9 +11,8 @@ class Lot < ApplicationRecord
   validates :code, presence: true, uniqueness: true, format: { with: /\A[A-Z]{3}\d{6}\z/, message: "Formato: 3 letras maiúsculas seguidas por 6 números (ex.: XYZ369258)" }
   validates :minimum_bid, presence: true, numericality: { greater_than: 0 }
   validates :minimum_bid_increment, presence: true, numericality: { greater_than: 0 }
-  validates :start_date, presence: true
   validates :start_date, comparison: { greater_than: Time.current }, on: [:create, :update], unless: -> { status == 'sold' || status == 'canceled' }
-  validates :end_date, presence: true, comparison: { greater_than: :start_date }
+  validates :end_date, comparison: { greater_than: :start_date }
 
   validate :validate_approval, on: :update, if: -> { approver_id_changed? }
   validate :status_transition_validation, on: :update, if: -> { status_changed? }
@@ -130,7 +129,7 @@ class Lot < ApplicationRecord
   end
 
   def creator_and_approver_must_be_admin
-    errors.add(:creator, 'deve ser um administrador') unless creator.admin?
+    errors.add(:creator, 'deve ser um administrador') unless creator && creator.admin?
     errors.add(:approver, 'deve ser um administrador') if approver && !approver.admin?
   end
 
