@@ -1,4 +1,4 @@
-item_a = Item.create!(name: 'Celular Galaxy S21', description: 'Smartphone Samsung com 128GB de armazenamento', weight: 171, width: 7, height: 15, depth: 1, category: 'Eletrônicos')
+item_a = Item.create!(name: 'Celular Galaxy S21', description: 'Smartphone Samsung com 128GB de armazenamento', weight: 171, width: 7, height: 15, depth: 1, category: 'Eletrônicos', image: { io: File.open(Rails.root.join('app', 'assets', 'images', '1.png')), filename: '1.png', content_type: 'image/png' })
 item_b = Item.create!(name: 'Teclado Mecânico RGB', description: 'Teclado mecânico com iluminação RGB', weight: 800, width: 35, height: 2, depth: 13, category: 'Periféricos')
 item_c = Item.create!(name: 'Mochila para Notebook', description: 'Mochila resistente a água para notebooks até 15.6"', weight: 900, width: 30, height: 45, depth: 15, category: 'Acessórios')
 item_d = Item.create!(name: 'Notebook Gamer Acer Predator', description: 'Intel Core i7 16GB 512GB SSD RTX 3060 15.6"', weight: 2500, width: 38, height: 2, depth: 26, category: 'Eletrônicos')
@@ -26,12 +26,40 @@ item_y = Item.create!(name: 'Guitarra Ibanez RG450DX', description: 'Guitarra El
 item_z = Item.create!(name: 'Bateria Acústica Mapex Prodigy', description: 'Bateria Acústica Mapex Prodigy', weight: 40000, width: 200, height: 100, depth: 200, category: 'Instrumentos Musicais')
 
 
-items = Item.order(:id)
-image_files = (1..26).map { |n| "#{n}.png" } 
+# items = Item.order(:id)
+# image_files = (1..26).map { |n| "#{n}.png" } 
 
-items.zip(image_files).each do |item, image_file|
-  item.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_file)), filename: image_file, content_type: 'image/png')
-end
+# items.zip(image_files).each do |item, image_file| # Trocado devido ao recorrente erro: ActiveRecord::StatementInvalid: SQLite3::BusyException: database is locked
+#   item.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_file)), filename: image_file, content_type: 'image/png')
+#   ActiveRecord::Base.connection.close # não resolveu o problema (SQLite3::BusyException: database is locked)
+# end
+
+# item_a.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '1.png')), filename: '1.png', content_type: 'image/png')
+item_b.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '2.png')), filename: '2.png', content_type: 'image/png')
+item_c.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '3.png')), filename: '3.png', content_type: 'image/png')
+item_d.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '4.png')), filename: '4.png', content_type: 'image/png')
+item_e.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '5.png')), filename: '5.png', content_type: 'image/png')
+item_f.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '6.png')), filename: '6.png', content_type: 'image/png')
+item_g.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '7.png')), filename: '7.png', content_type: 'image/png')
+item_h.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '8.png')), filename: '8.png', content_type: 'image/png')
+item_i.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '9.png')), filename: '9.png', content_type: 'image/png')
+item_j.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '10.png')), filename: '10.png', content_type: 'image/png')
+item_k.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '11.png')), filename: '11.png', content_type: 'image/png')
+item_l.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '12.png')), filename: '12.png', content_type: 'image/png')
+item_m.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '13.png')), filename: '13.png', content_type: 'image/png')
+item_n.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '14.png')), filename: '14.png', content_type: 'image/png')
+item_o.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '15.png')), filename: '15.png', content_type: 'image/png')
+item_p.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '16.png')), filename: '16.png', content_type: 'image/png')
+item_q.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '17.png')), filename: '17.png', content_type: 'image/png')
+item_r.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '18.png')), filename: '18.png', content_type: 'image/png')
+item_s.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '19.png')), filename: '19.png', content_type: 'image/png')
+item_t.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '20.png')), filename: '20.png', content_type: 'image/png')
+item_u.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '21.png')), filename: '21.png', content_type: 'image/png')
+item_v.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '22.png')), filename: '22.png', content_type: 'image/png')
+item_w.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '23.png')), filename: '23.png', content_type: 'image/png')
+item_x.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '24.png')), filename: '24.png', content_type: 'image/png')
+item_y.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '25.png')), filename: '25.png', content_type: 'image/png')
+item_z.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', '26.png')), filename: '26.png', content_type: 'image/png')
 
 
 ##Criação de usuários e admins
@@ -52,8 +80,8 @@ minimum_bid = 200
 minimum_bid_increment = 10
 
 # 2 Lotes Futuros / 1 aguardando aprovação >> start_date: 3.hours.from_now, end_date: 3.days.from_now
-start_date = Time.current + 3.hours
-end_date = Time.current + 3.days
+start_date = Time.current + 3.months
+end_date = start_date + 3.weeks
 
 # 1 Aguardando Aprovação
 lot_a = Lot.create!(code: 'OPQ890567', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_a)
@@ -73,7 +101,7 @@ lot_c.update(status: :approved, approver: admin_b)
 
 # 3 Lotes em andamento # start_date: 1.hour.ago, end_date: 3.days.from_now
 start_date = Time.current - 1.hour
-end_date = Time.current + 3.days
+end_date = Time.current + 3.months
 
 lot_d = Lot.new(code: 'FGH123789', start_date: start_date, end_date: end_date, minimum_bid: minimum_bid, minimum_bid_increment: minimum_bid_increment, creator: admin_c)
 lot_d.save(validate: false)
@@ -119,7 +147,7 @@ question_a = Question.new(lot: lot_f, user: user_f, content: 'Oi João, olha eu 
 question_a.save(validate: false)
 
 # Lotes encerrados >> start_date: 1.day.ago, end_date: 1.hour.ago
-start_date = Time.current - 1.day
+start_date = Time.current - 1.week
 end_date = Time.current - 1.hour
 
 # 1 Lote VENDIDO

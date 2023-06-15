@@ -8,10 +8,10 @@
   <div style="margin-left: 20px;">
     <div>Nome: <%= @item.name %></div>
     <div>Descrição: <%= @item.description %></div>
-    <div>Peso: <%= @item.weight %></div>
-    <div>Largura: <%= @item.width %></div>
-    <div>Altura: <%= @item.height %></div>
-    <div>Profundidade: <%= @item.depth %></div>
+    <div>Peso: <%= @item.weight %> g</div>
+    <div>Largura: <%= @item.width %> cm</div>
+    <div>Altura: <%= @item.height %> cm</div>
+    <div>Profundidade: <%= @item.depth %> cm</div>
     <div>Categoria: <%= @item.category %></div>
     <div>Código: <%= @item.code %></div>
     <div>Lote: <%= @item.lot ? link_to(@item.lot.code, @item.lot) : 'Sem lote associado' %> </div>

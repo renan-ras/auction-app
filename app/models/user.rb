@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :questions
   has_many :answered_questions, class_name: "Question", foreign_key: "answered_by_id"
   belongs_to :blocked_cpf, primary_key: :cpf, foreign_key: :cpf, optional: true
-  before_validation :set_admin_status_based_on_email_domain
+  before_validation :set_admin_status_based_on_email_domain, if: :new_record?
   validates :nickname, :cpf, presence: true
   validates :nickname, :cpf, uniqueness: true
   validate :cpf_must_be_valid
@@ -35,7 +35,7 @@ class User < ApplicationRecord
   end
 
   def set_admin_status_based_on_email_domain
-    self.admin = email.include?('@leilaodogalpao.com.br') if new_record?
+    self.admin = email.include?('@leilaodogalpao.com.br')
   end
 
   def cpf_not_blocked
