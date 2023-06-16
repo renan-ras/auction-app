@@ -16,9 +16,9 @@ class Bid < ApplicationRecord
   end
 
   def amount_meets_minimum
-    return unless lot.present?
+    return unless lot.present? & amount.present?
 
-    if lot.bids.count == 0 # lot.bids.empty? não funciona
+    if lot.bids.count == 0
       errors.add(:amount, 'O lance deve ser maior ou igual ao lance mínimo') if amount < lot.minimum_bid
     else
       min_amount = lot.bids.maximum(:amount) + lot.minimum_bid_increment
