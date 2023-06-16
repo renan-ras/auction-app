@@ -30,3 +30,6 @@
 
 # Arquivos do Active Storage
 /storage/
+
+# Arquivos do SimpleCov
+/coverage
