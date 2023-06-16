@@ -4,4 +4,3 @@ class Favorite < ApplicationRecord
 
   validates :user, uniqueness: { scope: :lot }
 end
-

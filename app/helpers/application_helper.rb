@@ -2,12 +2,12 @@ module ApplicationHelper
   def user_status
     if user_signed_in?
       if current_user.admin?
-        "admin"
+        'admin'
       else
-        "usuário"
+        'usuário'
       end
     else
-      "visitante"
+      'visitante'
     end
   end
 end

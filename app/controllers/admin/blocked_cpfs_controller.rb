@@ -1,5 +1,5 @@
 class Admin::BlockedCpfsController < ApplicationController
-  before_action :set_blocked_cpf, only: [:edit, :update, :destroy]
+  before_action :set_blocked_cpf, only: %i[edit update destroy]
 
   def index
     @blocked_cpfs = BlockedCpf.all
@@ -8,6 +8,8 @@ class Admin::BlockedCpfsController < ApplicationController
   def new
     @blocked_cpf = BlockedCpf.new
   end
+
+  def edit; end
 
   def create
     @blocked_cpf = BlockedCpf.new(blocked_cpf_params)
@@ -18,9 +20,6 @@ class Admin::BlockedCpfsController < ApplicationController
       flash[:alert] = 'Falha ao bloquear CPF.'
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
@@ -39,11 +38,10 @@ class Admin::BlockedCpfsController < ApplicationController
   private
 
   def set_blocked_cpf
-  @blocked_cpf = BlockedCpf.find(params[:id])
-  end
-  
-  def blocked_cpf_params
-  params.require(:blocked_cpf).permit(:cpf, :reason)
+    @blocked_cpf = BlockedCpf.find(params[:id])
   end
 
+  def blocked_cpf_params
+    params.require(:blocked_cpf).permit(:cpf, :reason)
+  end
 end

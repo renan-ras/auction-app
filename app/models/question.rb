@@ -9,6 +9,6 @@ class Question < ApplicationRecord
   private
 
   def answered_by_must_be_admin
-    errors.add(:answered_by, "must be an admin") if answered_by.present? && !answered_by.admin?
+    errors.add(:answered_by, 'must be an admin') if answered_by.present? && !answered_by.admin?
   end
 end
