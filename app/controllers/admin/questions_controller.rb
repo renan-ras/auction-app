@@ -7,7 +7,7 @@ class Admin::QuestionsController < ApplicationController
 
   def edit
     @question = Question.find(params[:id])
-  end  
+  end
 
   def update
     @question = Question.find(params[:id])

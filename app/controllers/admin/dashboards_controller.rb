@@ -11,8 +11,8 @@ class Admin::DashboardsController < ApplicationController
   private
 
   def ensure_admin
-    unless current_user.admin?
-      redirect_to root_path, alert: "Acesso negado"
-    end
+    return if current_user.admin?
+
+    redirect_to root_path, alert: 'Acesso negado'
   end
 end

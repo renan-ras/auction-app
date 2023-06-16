@@ -5,8 +5,7 @@ class ItemsController < ApplicationController
     @items = Item.in_approved_lots
   end
 
-  def show
-  end
+  def show; end
 
   private
 

@@ -1,6 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
+  def index
+    @lot = Lot.find(params[:lot_id])
+    @questions = @lot.questions.visible
+  end
+
   def create
     @lot = Lot.find(params[:lot_id])
     @question = @lot.questions.build(question_params)
@@ -12,11 +17,6 @@ class QuestionsController < ApplicationController
       flash[:alert] = 'Erro ao enviar pergunta.'
       render 'lots/show'
     end
-  end
-
-  def index
-    @lot = Lot.find(params[:lot_id])
-    @questions = @lot.questions.visible
   end
 
   private

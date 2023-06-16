@@ -13,4 +13,3 @@ class FavoritesController < ApplicationController
     redirect_to lot_path(lot), notice: 'Lote removido dos favoritos.'
   end
 end
-

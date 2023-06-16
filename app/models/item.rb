@@ -23,28 +23,35 @@ class Item < ApplicationRecord
   def generate_code
     loop do
       self.code = SecureRandom.alphanumeric(10).upcase
-      break unless Item.exists?(code: code) #Código único
+      break unless Item.exists?(code:) # Código único
     end
   end
 
-  def validate_lot_id #Condições de aprovação: Lote_anterior(nil, pending ou canceled) E Lote_atual(nil ou pending)
+  def validate_lot_id # Condições de aprovação: Lote_anterior(nil, pending ou canceled) E Lote_atual(nil ou pending)
     lot = Lot.find(lot_id) if lot_id.present?
     if lot_id_was.nil?
       errors.add(:lot_id, 'O lote atual não está habilitado para edição') unless lot.pending_approval?
     else
       lot_was = Lot.find(lot_id_was)
-      errors.add(:lot_id, 'Alteração de lotes não permitida') unless (lot_was.pending_approval? || lot_was.canceled?) && (lot_id.nil? || lot.pending_approval?)
+      unless (lot_was.pending_approval? || lot_was.canceled?) && (lot_id.nil? || lot.pending_approval?)
+        errors.add(:lot_id,
+                   'Alteração de lotes não permitida')
+      end
     end
   end
 
   def check_editable
-    errors.add(:base, 'O item só pode ser editado se não estiver em um lote ou se o lote estiver aguardando aprovação.') if lot.present? && !lot.pending_approval?
+    return unless lot.present? && !lot.pending_approval?
+
+    errors.add(:base,
+               'O item só pode ser editado se não estiver em um lote ou se o lote estiver aguardando aprovação.')
   end
 
   def can_be_destroyed?
     return true if lot.nil? || lot.pending_approval?
-    errors.add(:base, 'O item só pode ser excluído se não estiver em um lote ou se o lote estiver pendente de aprovação')
+
+    errors.add(:base,
+               'O item só pode ser excluído se não estiver em um lote ou se o lote estiver pendente de aprovação')
     throw :abort
   end
-
 end

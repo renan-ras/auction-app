@@ -10,7 +10,7 @@ class BidsController < ApplicationController
       flash[:notice] = 'Lance enviado com sucesso!'
     else
       flash[:alert] = 'Não foi possível enviar o lance.'
-      flash[:alert] += ": " + bid.errors.full_messages.join(", ") unless bid.errors.empty?
+      flash[:alert] += ': ' + bid.errors.full_messages.join(', ') unless bid.errors.empty?
     end
 
     redirect_to lot_path(@lot)
