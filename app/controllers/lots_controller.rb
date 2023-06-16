@@ -10,5 +10,4 @@ class LotsController < ApplicationController
   def set_lot
     @lot = Lot.find(params[:id])
   end
-
 end

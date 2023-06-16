@@ -1,6 +1,6 @@
 module Admin
   class ItemsController < BaseController
-    before_action :set_item, only: [:edit, :update, :destroy]
+    before_action :set_item, only: %i[edit update destroy]
 
     def lotless_items
       @items = Item.where(lot_id: nil) # Itens não associados a lotes
@@ -14,6 +14,8 @@ module Admin
       @item = Item.new
     end
 
+    def edit; end
+
     def create
       @item = Item.new(item_params)
 
@@ -25,14 +27,11 @@ module Admin
       end
     end
 
-    def edit
-    end
-
     def update
       if @item.update(item_params)
         redirect_to @item, notice: 'Item atualizado com sucesso'
       else
-        flash.now[:alert] = "Item não atualizado"
+        flash.now[:alert] = 'Item não atualizado'
         render 'edit'
       end
     end
@@ -41,8 +40,8 @@ module Admin
       if @item.destroy
         flash[:notice] = 'Item removido com sucesso'
       else
-        flash[:alert] = "Item não removido"
-        flash[:alert] += ": " + @item.errors.full_messages.join(", ") unless @item.errors.empty?
+        flash[:alert] = 'Item não removido'
+        flash[:alert] += ': ' + @item.errors.full_messages.join(', ') unless @item.errors.empty?
       end
       redirect_to items_path
     end

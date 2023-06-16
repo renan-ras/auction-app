@@ -5,15 +5,14 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :cpf])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[nickname cpf])
   end
 
   def check_blocked_cpf
-    if current_user && BlockedCpf.exists?(cpf: current_user.cpf)
-      sign_out current_user
-      flash[:alert] = "Sua conta está suspensa."
-      redirect_to root_path
-    end
-  end
+    return unless current_user && BlockedCpf.exists?(cpf: current_user.cpf)
 
+    sign_out current_user
+    flash[:alert] = 'Sua conta está suspensa.'
+    redirect_to root_path
+  end
 end

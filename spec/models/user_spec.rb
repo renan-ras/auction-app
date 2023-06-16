@@ -2,11 +2,9 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'Registro de usuário' do
-    context "comum" do
-      it "com sucesso" do
-        #
+    context 'comum' do
+      it 'com sucesso' do
         user_a = User.new(nickname: 'Ronaldo', email: 'fenomeno@timao.com', password: '123456', cpf: '69142235219')
-        #
         result = user_a.valid?
         # Assert
         expect(result).to eq true
@@ -14,11 +12,10 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "admin" do
-      it "com sucesso" do
-        #
-        user_a = User.new(nickname: 'Ronaldo', email: 'fenomeno@leilaodogalpao.com.br', password: '123456', cpf: '69142235219')
-        #
+    context 'admin' do
+      it 'com sucesso' do
+        user_a = User.new(nickname: 'Ronaldo', email: 'fenomeno@leilaodogalpao.com.br', password: '123456',
+                          cpf: '69142235219')
         result = user_a.valid?
         # Assert
         expect(result).to eq true
@@ -26,5 +23,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-  
 end
