@@ -1,4 +1,4 @@
-class Admin::BlockedCpfsController < ApplicationController
+class Admin::BlockedCpfsController < BaseController
   before_action :set_blocked_cpf, only: %i[edit update destroy]
 
   def index

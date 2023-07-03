@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
     cpf_valido = cpf.chars.map(&:to_i)[0..8]
 
-    for i in 1..2 do
+    2.times do
       soma_multiplicacao = cpf_valido.map.with_index { |n, index| n * (cpf_valido.size + 1 - index) }.sum
       cpf_valido << ((11 - (soma_multiplicacao % 11)) > 9 ? 0 : (11 - (soma_multiplicacao % 11)))
     end

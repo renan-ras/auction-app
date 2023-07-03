@@ -10,8 +10,8 @@ class Api::V1::LotsController < Api::V1::ApiController
   end
 
   def create
-    lot_params = params.require(:lot).permit(:code, :start_date, :end_date, :minimum_bid, :minimum_bid_increment,
-                                             :creator_id)
+    lot_params = params.require(:lot).permit(:code, :start_date, :end_date, :minimum_bid,
+                                             :minimum_bid_increment, :creator_id)
 
     lot = Lot.new(lot_params)
 
