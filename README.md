@@ -121,7 +121,7 @@ Comando para configuração inicial (isso já carrega os seeds)
 Rodando aplicação
 
 ```sh
-./bin/dev
+rails server
 ```
 Acesse a aplicação em seu navegador através do endereço http://localhost:3000
 
