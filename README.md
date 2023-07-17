@@ -7,6 +7,29 @@
   <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
 </p>
 
+### Tópicos 
+
+:small_blue_diamond: [Descrição do projeto](#descrição-do-projeto)
+
+:small_blue_diamond: [Funcionalidades](#principais-funcionalidades)
+
+:small_blue_diamond: [Pré-requisitos](#pré-requisitos)
+
+:small_blue_diamond: [Setup](#como-rodar-a-aplicação)
+
+:small_blue_diamond: [Dados de acesso](#dados-de-acesso---seeds)
+
+## Descrição do projeto
+Leilão de itens que podem apresentar algum tipo de avaria. Mesmo que sejam do mesmo modelo, cada item é único e terá seu próprio cadastro, descrição, fotos e código.
+
+Um lote agrupa um ou vários itens e estabelece o lance mínimo para o lote, o incremento mínimo entre lances e as datas de início e término. Para que um lote se torne um leilão disponível para os usuários regulares, ele precisa ser aprovado por um administrador diferente daquele que criou o lote.
+
+Assim que um lote é aprovado, o leilão e seus itens ficam disponíveis para visualização na seção 'Leilões Futuros'. Usuários regulares cadastrados já podem adicionar esses lotes aos seus favoritos, fazer perguntas e visualizar perguntas de outros usuários, bem como as respostas dos administradores (a menos que um administrador decida ocultar uma pergunta). Quando a data de início do leilão chega, ele é movido para a seção de 'Leilões em Andamento' e já pode receber lances dos usuários regulares.
+
+Ao término do prazo do leilão, o administrador irá validar seu resultado, autorizando a venda para o maior lance ou cancelando o leilão caso não haja lances. Este processo não é automático, devido a um requisito do projeto. Os itens de leilões cancelados voltam a estar disponíveis para outros leilões.
+
+Os usuários podem visualizar em seu próprio painel os leilões dos quais participaram, aqueles que ganharam e os que adicionaram aos favoritos.
+
 ## Principais Funcionalidades
 * **Cadastro de usuários regulares e administradores**
 
@@ -16,12 +39,12 @@
 
 * **Aprovação de lotes por um segundo admin**
 
-* **Envio de lances por usuários cadastrados enquanto lote estiver no prazo**  
+* **Envio de lances por usuários cadastrados (enquanto leilão estiver em andamento)**  
   <details>
   <summary>Ver imagem</summary>
 
   ![Screenshot from 2023-07-07 15-44-01](https://github.com/renan-ras/auction-app/assets/126360032/b4d8abdd-85df-4c47-a2dd-26a4c4bed71d)
-  </details><br>
+  </details>
   
 * **Perguntas e respostas em cada lote para usuários cadastrados**
 
@@ -31,7 +54,7 @@
 
   ![Screenshot from 2023-07-17 16-52-53](https://github.com/renan-ras/auction-app/assets/126360032/35732004-aebb-48d7-9f93-19fcec8e4166)
 
-  </details><br>
+  </details>
 
 * **Usuário cadastrado pode favoritar lotes**
 
@@ -40,28 +63,28 @@
   <summary>Ver imagem</summary>
 
   ![Screenshot from 2023-07-17 15-27-19](https://github.com/renan-ras/auction-app/assets/126360032/a39d7c71-85ee-4f4a-bba9-386aabd17281)
-  </details><br>
+  </details>
   
 * **Painel de administradores com tarefas pendentes**  
   <details>
   <summary>Ver imagem</summary>
 
   ![Screenshot from 2023-07-17 15-14-22](https://github.com/renan-ras/auction-app/assets/126360032/9143071a-08d1-4b20-aefb-172a0698b4ed)
-  </details><br>
+  </details>
 
 * **Busca de lotes por código ou nome de item**
   <details>
   <summary>Ver imagem</summary>
 
   ![Screenshot from 2023-07-17 16-20-14](https://github.com/renan-ras/auction-app/assets/126360032/2f89c8ae-e6b5-423a-8f61-1511fcc104eb)
-  </details><br>
+  </details>
 
 * **Bloqueio por CPF de usuário cadastrado ou não**
   <details>
   <summary>Ver imagem</summary>
 
   ![Screenshot from 2023-07-17 16-37-10](https://github.com/renan-ras/auction-app/assets/126360032/de0e5d26-fb94-4b5d-bd67-8475c99c5f23)
-  </details><br>
+  </details>
 
 * **Leilões sem lances são cancelados e itens voltam a estar disponíveis para outros leilões**
 
@@ -73,6 +96,8 @@
 :warning: [Ruby on Rails: versão 7.0.4.3](https://rubygems.org/gems/rails/versions/7.0.4.3)
 
 :warning: [SQLite3: versão 1.4](https://www.sqlite.org/download.html)
+
+:warning: [Node](https://nodejs.org/en/download/)
 
 ## Como rodar a aplicação
 
@@ -100,7 +125,7 @@ Rodando aplicação
 ```
 Acesse a aplicação em seu navegador através do endereço http://localhost:3000
 
-## Dados de acesso (seeds)
+## Dados de acesso - seeds
 
 | Papel   | E-mail                           | nickname   | password | CPF         |
 |---------| ---------------------------------|------------| -------- |-------------|
